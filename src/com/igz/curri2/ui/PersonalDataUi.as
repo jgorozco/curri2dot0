@@ -77,18 +77,18 @@ package com.igz.curri2.ui
 			//if (p_object.$Photo.length==0)
 			//{
 				var pictLdr:Loader = new Loader();
-				var pictURLReq:URLRequest = new URLRequest(p_object.$Photo);
+				var pictURLReq:URLRequest = new URLRequest(p_object.Photo);
 				pictLdr.load(pictURLReq);
 				pictLdr.contentLoaderInfo.addEventListener( Event.INIT , loaded);
 			//}
-			_NameData.text =p_object.$Name;
-			_PhoneData.text = p_object.$Phone
-			_AddressData.text = p_object.$Address;
-			_UniversityData.text = p_object.$University;
-			_DriveLicenseData.text = p_object.$DriveLicense;
-			_PoblationData.text = p_object.$Poblation;
-			_NationalityData.text = p_object.$Nationality;
-			_MailData.text = p_object.$Mail;
+			_NameData.text =p_object.Name;
+			_PhoneData.text = p_object.Phone
+			_AddressData.text = p_object.Address;
+			_UniversityData.text = p_object.University;
+			_DriveLicenseData.text = p_object.DriveLicense;
+			_PoblationData.text = p_object.Poblation;
+			_NationalityData.text = p_object.Nationality;
+			_MailData.text = p_object.Mail;
 		}
 		
 		private function loaded(event:Event):void

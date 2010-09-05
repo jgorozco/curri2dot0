@@ -1,0 +1,47 @@
+{
+    "Data": {
+        "UserData": {
+            "Name": "file",
+            "Phone": "File",
+            "Address": "File",
+            "University": "File",
+            "DriveLicense": "File",
+            "Poblation": "File",
+            "Nationality": "File",
+            "Mail": "File",
+            "Photo": "File" 
+        },
+        "Proyects": [
+            {
+                "Name": "file",
+                "Company": "File",
+                "SubCategory": "File",
+                "InitDate": "File",
+                "EndDate": "File",
+                "Description": "File",
+                "Company": "File",
+                "Url": "File" 
+            },
+            {
+                "Name": "file",
+                "Company": "File",
+                "SubCategory": "File",
+                "InitDate": "File",
+                "EndDate": "File",
+                "Description": "File",
+                "Company": "File",
+                "Url": "File" 
+            },
+            {
+                "Name": "file",
+                "Company": "File",
+                "SubCategory": "File",
+                "InitDate": "File",
+                "EndDate": "File",
+                "Description": "File",
+                "Company": "File",
+                "Url": "File" 
+            } 
+        ] 
+    }
+} 
