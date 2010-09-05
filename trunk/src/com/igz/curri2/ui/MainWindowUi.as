@@ -1,5 +1,6 @@
 package com.igz.curri2.ui 
 {
+	import com.greensock.TimelineLite;
 	import com.igz.curri2.frwk.PersonalDataDto;
 	import flash.display.Sprite;
 	import igz.fleaxy.Fleaxy;
@@ -48,15 +49,15 @@ package com.igz.curri2.ui
 
 		
 		var p:PersonalDataDto = new PersonalDataDto();
-		p.$Name = "jose garcia orozco";
-		p.$Address = "c arroofbslkdjf a iafjao";
-		p.$Mail = "jose@fssa.ws";
-		p.$Photo = "http://lh3.ggpht.com/_z5BKP2TY3eg/SxgvhRZZ7fI/AAAAAAAAA7M/zJtBElLd34w/orla.jpg";
-		p.$DriveLicense = "1";
-		p.$Phone = "34134214321";
-		p.$Nationality = "felkefj´leq";
-		p.$Poblation = "nflefnl´qfle";
-		p.$University = "dfsafeafafa";			
+		p.Name = "jose garcia orozco";
+		p.Address = "c arroofbslkdjf a iafjao";
+		p.Mail = "jose@fssa.ws";
+		p.Photo = "http://lh3.ggpht.com/_z5BKP2TY3eg/SxgvhRZZ7fI/AAAAAAAAA7M/zJtBElLd34w/orla.jpg";
+		p.DriveLicense = "1";
+		p.Phone = "34134214321";
+		p.Nationality = "felkefj´leq";
+		p.Poblation = "nflefnl´qfle";
+		p.University = "dfsafeafafa";			
 		_PersonalData.$LoadPersonalData(p);
 		
 
@@ -65,6 +66,10 @@ package com.igz.curri2.ui
 		trace(Fleaxy.$Current.$Stage.stageHeight+"++"+_Categories.height);
 		_Categories.y = (Fleaxy.$Current.$Stage.stageHeight-_Categories.height+120) / 2;
 		
+		var t:TimeLineUi = new TimeLineUi();
+		t.x = _Categories.x + _Categories.width;
+		t.y = _Categories.y;
+		addChild(t);
 		}
 		
 		private function _clickedFunction():void

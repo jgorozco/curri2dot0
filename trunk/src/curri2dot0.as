@@ -1,4 +1,5 @@
 ﻿package {
+	import com.igz.curri2.Frwk;
 	import com.igz.curri2.ui.Gui;
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
@@ -72,7 +73,7 @@
 		}
 
 		protected function _FleaxyInit_OnComplete() : void {
-			 //Frwk.$Current.$Init();
+			 Frwk.$Current.$Init();
 			 Gui.$Current.$Init();
 		}
 
