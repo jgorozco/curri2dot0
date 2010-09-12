@@ -1,6 +1,7 @@
 package com.igz.curri2.ui 
 {
 	import com.greensock.TimelineLite;
+	import com.igz.curri2.Frwk;
 	import com.igz.curri2.frwk.PersonalDataDto;
 	import flash.display.Sprite;
 	import igz.fleaxy.Fleaxy;
@@ -48,17 +49,8 @@ package com.igz.curri2.ui
 		addChild(_PersonalData);
 
 		
-		var p:PersonalDataDto = new PersonalDataDto();
-		p.Name = "jose garcia orozco";
-		p.Address = "c arroofbslkdjf a iafjao";
-		p.Mail = "jose@fssa.ws";
-		p.Photo = "http://lh3.ggpht.com/_z5BKP2TY3eg/SxgvhRZZ7fI/AAAAAAAAA7M/zJtBElLd34w/orla.jpg";
-		p.DriveLicense = "1";
-		p.Phone = "34134214321";
-		p.Nationality = "felkefj´leq";
-		p.Poblation = "nflefnl´qfle";
-		p.University = "dfsafeafafa";			
-		_PersonalData.$LoadPersonalData(p);
+
+		_PersonalData.$LoadPersonalData(Frwk.$Current.$PersonalData);
 		
 
 		_Categories = new CategoriesUi();

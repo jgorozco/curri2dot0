@@ -18,7 +18,6 @@ package com.igz.curri2.frwk
 		public var InitDate:Date=new Date();
 		public var EndDate:Date = new Date();
 		public var Description:String="";
-		public var Company:String="";
 		
 		
 		
@@ -33,10 +32,10 @@ package com.igz.curri2.frwk
 			this.Category = p_object.Category;
 			this.Company = p_object.Company;
 			this.Description = p_object.Description;
-			if (DateTimeUtil.$IsDateTimeType(this.EndDate)){
+			if (DateTimeUtil.$IsDateTimeType(p_object.EndDate)){
 				this.EndDate = DateTimeUtil.$ToDate(p_object.EndDate, DateTimeFormat.DEFAULT_DATE);
 			}
-			if (DateTimeUtil.$IsDateTimeType(this.InitDate)){			
+			if (DateTimeUtil.$IsDateTimeType(p_object.InitDate)){			
 				this.InitDate = DateTimeUtil.$ToDate(p_object.InitDate,DateTimeFormat.DEFAULT_DATE);
 			}
 			this.SubCategory = p_object.SubCategory;

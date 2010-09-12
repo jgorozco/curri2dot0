@@ -73,8 +73,7 @@
 		}
 
 		protected function _FleaxyInit_OnComplete() : void {
-			 Frwk.$Current.$Init();
-			 Gui.$Current.$Init();
+			 Frwk.$Current.$Init(Gui.$Current.$Init);
 		}
 
 	}
