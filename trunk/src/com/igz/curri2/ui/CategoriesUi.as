@@ -60,6 +60,9 @@ package com.igz.curri2.ui
 					(_Categories[i] as LinkUi).x = this.width - (_Categories[i] as LinkUi).width;
 				}
 			}
+			graphics.beginFill(0x0000ff);
+			graphics.drawRect(0, 0, width, _Settings["height"]);
+			graphics.endFill();
 		}
 		
 		private function _OnClickSelectCategorie(p_event:MouseEvent):void
