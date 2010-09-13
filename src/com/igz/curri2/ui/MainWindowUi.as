@@ -2,6 +2,7 @@ package com.igz.curri2.ui
 {
 	import com.greensock.TimelineLite;
 	import com.igz.curri2.Frwk;
+	import com.igz.curri2.frwk.CategoryDto;
 	import com.igz.curri2.frwk.PersonalDataDto;
 	import flash.display.Sprite;
 	import igz.fleaxy.Fleaxy;
@@ -30,15 +31,18 @@ package com.igz.curri2.ui
 					
 						
 		_tagCloud = new TagsCloudUi(MySettings);
-		_tagCloud.AddTag("Android", 3);
-		_tagCloud.AddTag("Iphone",5);
-		_tagCloud.AddTag("Flash", 4);
-		_tagCloud.AddTag("Flash lite", 2);
-		_tagCloud.AddTag("Web apps Java", 3);
-		_tagCloud.AddTag("Movilidad", 2);
-		_tagCloud.AddTag("Web Flash",3);
-		_tagCloud.AddTag("Unity 3d", 2);
-		_tagCloud.AddTag("poyas",3);
+		for each (var itm:CategoryDto in Frwk.$Current.$Categories) 
+		{
+		_tagCloud.AddTag(itm.$Name, itm.$Count+3);
+		if (itm.$Sons.length > 0)
+		  for each (var itm2:CategoryDto in itm.$Sons)
+			{
+			  _tagCloud.AddTag(itm2.$Name, itm.$Count);
+		   
+			}
+			
+		}
+		
 		addChild(_tagCloud);
 		_tagCloud.x = 50;
 		_tagCloud.y = 50;
@@ -47,14 +51,12 @@ package com.igz.curri2.ui
 		_PersonalData.x = 150;
 		_PersonalData.y =-300;
 		addChild(_PersonalData);
-
-		
-
 		_PersonalData.$LoadPersonalData(Frwk.$Current.$PersonalData);
 		
 
 		_Categories = new CategoriesUi();
 		addChild(_Categories);
+		_InitCategories();
 		trace(Fleaxy.$Current.$Stage.stageHeight+"++"+_Categories.height);
 		_Categories.y = (Fleaxy.$Current.$Stage.stageHeight-_Categories.height+120) / 2;
 		
@@ -62,6 +64,16 @@ package com.igz.curri2.ui
 		t.x = _Categories.x + _Categories.width;
 		t.y = _Categories.y;
 		addChild(t);
+		}
+		
+		private function _InitCategories():void
+		{
+			var arr:Array = Frwk.$Current.$Categories;
+			for each (var itm:CategoryDto in Frwk.$Current.$Categories)
+			{
+				_Categories.$AddCategorie(itm.$Name);
+				
+			}
 		}
 		
 		private function _clickedFunction():void

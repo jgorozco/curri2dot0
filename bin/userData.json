@@ -24,8 +24,8 @@
             },
             {
                 "Name": "CRUE1",
-                "Category": "Web Service1",
-                "SubCategory": "Java1",
+                "Category": "Web Service2",
+                "SubCategory": "Java2",
                 "InitDate": "01/09/2008",
                 "EndDate": "01/09/2009",
                 "Description": "CRUE CRUE CRUE CRUE CRUEs1",
@@ -34,14 +34,24 @@
             },
             {
                 "Name": "CRUE2",
-                "Category": "Web Service2",
-                "SubCategory": "Java2",
+                "Category": "Web Service3",
+                "SubCategory": "Java3",
                 "InitDate": "01/09/2009",
                 "EndDate": "",
                 "Description": "CRUE CRUE CRUE CRUE CRUEs2",
                 "Company": "Universidad Polit2",
                 "Url": "File2" 
-            }
+            },
+            {
+                "Name": "CRUE2",
+                "Category": "Web Service3",
+                "SubCategory": "Java",
+                "InitDate": "01/09/2009",
+                "EndDate": "",
+                "Description": "CRUE CRUE CRUE CRUE CRUEs2",
+                "Company": "Universidad Polit2",
+                "Url": "File2" 
+            }			
         ] 
     }
 } 
