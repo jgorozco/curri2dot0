@@ -45,7 +45,7 @@
             {
                 "Name": "CRUE2",
                 "Category": "Web Service3",
-                "SubCategory": "Java",
+                "SubCategory": "Java,struts",
                 "InitDate": "01/09/2009",
                 "EndDate": "",
                 "Description": "CRUE CRUE CRUE CRUE CRUEs2",

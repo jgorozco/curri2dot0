@@ -19,12 +19,12 @@ package com.igz.curri2.ui
 			var setting:Object = new Object();
 			setting["parent"] = this;
 			setting["principal"] = true;
-			setting["color"] = 0x00FF00;			
+			setting["color"] = 0xFFFFFF*Math.random();			
 			Categorie = new CategoriesUi(setting);
 			var setting2:Object = new Object();
 			setting2["parent"] = this;
 			setting2["principal"] = false;
-			setting2["color"] = 0xFF0000;
+			setting2["color"] = 0xFFFFFF*Math.random();
 			SubCategorie = new CategoriesUi(setting2);	
 			addChild(SubCategorie);
 			addChild(Categorie);
@@ -53,13 +53,13 @@ package com.igz.curri2.ui
 		public function $ShowCategorie():void
 		{
 			TweenLite.to(Categorie, 0.5, { x:0} )	;
-			TweenLite.to(SubCategorie, 0.5, { x:20-SubCategorie.width} )	;
+			TweenLite.to(SubCategorie, 0.5, { x:-SubCategorie.width} )	;
 		}
 
 		public function $HideCategorie():void
 		{
-			TweenLite.to(Categorie, 0.5, { x:20-Categorie.width} )	;
-			TweenLite.to(SubCategorie, 0.5, { x:0} )	;
+			TweenLite.to(Categorie, 0.5, { x:40-Categorie.width} )	;
+			TweenLite.to(SubCategorie, 0.5, { x:10} )	;
 		}		
 		
 		

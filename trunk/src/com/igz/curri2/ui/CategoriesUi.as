@@ -19,7 +19,7 @@ package com.igz.curri2.ui
 		private var _CategoriesData:Array;
 		private var _principal:Boolean;
 		private var _Parent:ComboCategoriesUI;
-		
+		private var _BackButton:LinkUi;
 		private var _SubCategories:CategoriesUi;
 		
 		public var $IsHidden:Boolean;
@@ -35,17 +35,33 @@ package com.igz.curri2.ui
 			ObjectUtil.$Merge( p_settings, _Settings );
 			_Parent = (p_settings["parent"] as ComboCategoriesUI);
 			_principal = (p_settings["principal"]as Boolean);
-			var color:Number = (p_settings["color"] as Number);
+			var color:Number = (_Settings["color"] as Number);
 			trace("IS PRINCIPAL?"+_principal);
 			$IsHidden = _principal;
 			graphics.beginFill(color);
 			graphics.drawRect(0, 0, _Settings["width"], _Settings["height"]);
 			graphics.endFill();
+
+			if (_principal)
+			{
+				var linked:Sprite = new Sprite();
+				linked.graphics.beginFill(0x00ff00);
+				linked.graphics.drawRect(0, 0, 30, 20);
+				linked.graphics.endFill();
+				_BackButton = new LinkUi(linked, { "onClick":_OnClickReturn } );
+				addChild(_BackButton);
+				_BackButton.x =this.width;
+				_BackButton.y = -_BackButton.height;
+				_BackButton.visible = false;
+			}
 		}
 		
 		public function $ClearAllCategories():void
 		{
-			SpriteUtil.$RemoveChildsOf(this);
+			if (!_principal)
+			{
+				SpriteUtil.$RemoveChildsOf(this);
+			}
 			_Categories = new Array();
 			_CategoriesData = new Array();			
 		}
@@ -84,8 +100,12 @@ package com.igz.curri2.ui
 					(_Categories[i] as LinkUi).x = this.width - (_Categories[i] as LinkUi).width;
 				}
 			}
-			graphics.beginFill(0x0000ff);
+			graphics.beginFill((_Settings["color"] as Number));
 			graphics.drawRect(0, 0, width, _Settings["height"]);
+			if (_principal)
+			{
+				_BackButton.x = width;
+			}
 			graphics.endFill();
 		}
 		
@@ -102,26 +122,34 @@ package com.igz.curri2.ui
 		return cat;	
 		}
 		
+		private function _OnClickReturn(p_event:MouseEvent):void
+		{
+			_Parent.$ShowCategorie();
+			_BackButton.visible = false;
+			$IsHidden = !$IsHidden;
+		}
+		
 		private function _OnClickSelectCategorie(p_event:MouseEvent):void
 		{
-			trace("es elprincipal:->"+_principal);
 			if (_principal)
 			{
+				$IsHidden = !$IsHidden;
 				if (!$IsHidden)
 				{
 					var link:LinkUi = ( p_event.currentTarget as LinkUi);
 					var currentCat:CategoryDto = _GetCategorie(link.name);
 					_Parent.$AddSubCategorie(currentCat.$Sons);
 					_Parent.$HideCategorie();
+					_BackButton.visible = true;
 				}else
 				{
 					_Parent.$ShowCategorie();
+					_BackButton.visible = false;
 				}
-				$IsHidden = !$IsHidden;				
 			}
 			else
 			{
-
+				//parent muestra linea de la movida selecionada
 			}			
 		}
 		
