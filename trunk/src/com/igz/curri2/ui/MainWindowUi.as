@@ -18,7 +18,7 @@ package com.igz.curri2.ui
 		
 		private var _tagCloud:TagsCloudUi;
 		private var _PersonalData:PersonalDataUi;
-		private var _Categories:CategoriesUi;
+		private var _ComboCategoriesUI:ComboCategoriesUI;
 		private var _SecondaryCategories:CategoriesUi;
 		
 		public function MainWindowUi() 
@@ -43,7 +43,7 @@ package com.igz.curri2.ui
 			
 		}
 		
-		addChild(_tagCloud);
+/*		addChild(_tagCloud);
 		_tagCloud.x = 50;
 		_tagCloud.y = 50;
 		
@@ -52,35 +52,30 @@ package com.igz.curri2.ui
 		_PersonalData.y =-300;
 		addChild(_PersonalData);
 		_PersonalData.$LoadPersonalData(Frwk.$Current.$PersonalData);
+		*/
+		_ComboCategoriesUI = new ComboCategoriesUI();
+		_ComboCategoriesUI.$AddCategorie( Frwk.$Current.$Categories);
+		_ComboCategoriesUI.y = (Fleaxy.$Current.$Stage.stageHeight-_ComboCategoriesUI.height+120) / 2;
+		addChild(_ComboCategoriesUI);
+		_ComboCategoriesUI.$ShowCategorie();
+/*		_Categories = new CategoriesUi(new Object());
+		_Categories.x = 200;
+		_Categories.y = 100;
+		addChild(_Categories);*/
+		//trace(Fleaxy.$Current.$Stage.stageHeight+"++"+_Categories.height);
+		//_Categories.y = (Fleaxy.$Current.$Stage.stageHeight-_Categories.height+120) / 2;
 		
-
-		_Categories = new CategoriesUi();
-		addChild(_Categories);
-		_InitCategories();
-		trace(Fleaxy.$Current.$Stage.stageHeight+"++"+_Categories.height);
-		_Categories.y = (Fleaxy.$Current.$Stage.stageHeight-_Categories.height+120) / 2;
-		
-		var t:TimeLineUi = new TimeLineUi();
+/*		var t:TimeLineUi = new TimeLineUi();
 		t.x = _Categories.x + _Categories.width;
 		t.y = _Categories.y;
-		addChild(t);
-		}
-		
-		private function _InitCategories():void
-		{
-			var arr:Array = Frwk.$Current.$Categories;
-			for each (var itm:CategoryDto in Frwk.$Current.$Categories)
-			{
-				_Categories.$AddCategorie(itm.$Name);
-				
-			}
+		addChild(t);*/
 		}
 		
 		private function _clickedFunction():void
 		{
 			trace("clicked function");
 			var selected:String = _tagCloud.$GetCurrentTag();
-			_Categories.$AddCategorie(selected);
+		//	_Categories.$AddCategorie(selected);
 			//var lab:LabelUi = new LabelUi(selected);
 			//lab.x = Math.random() * 700;
 			//lab.y = Math.random() * 700;
