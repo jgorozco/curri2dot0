@@ -8,6 +8,8 @@ package com.igz.curri2.ui
 	public class TimeLineUi extends Sprite
 	{
 		public var $Bg:Sprite;
+		private var _CategorieList:CategoriesUi;
+		
 		
 		public function TimeLineUi(p_categorie:CategoriesUi=null) 
 		{
@@ -16,6 +18,17 @@ package com.igz.curri2.ui
 			$Bg.graphics.drawRect(0, 0, 500, 200);
 			$Bg.graphics.endFill();
 			addChild($Bg);
+			if (p_categorie != null)
+			{
+			$SetCategorie(p_categorie);	
+			}
+			
+		}
+		
+		public function $SetCategorie(p_categorie:CategoriesUi):void
+		{
+		_CategorieList = p_categorie;	
+			
 		}
 		
 	}
