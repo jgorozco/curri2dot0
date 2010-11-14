@@ -12,10 +12,13 @@ package com.igz.curri2.ui
 	{
 		public var Categorie:CategoriesUi;
 		public var SubCategorie:CategoriesUi;	
+		public var CurrentCategorie:CategoriesUi;
 		public var Timeline:TimeLineUi;
 		
 		public function ComboCategoriesUI() 
 		{
+
+			
 			var setting:Object = new Object();
 			setting["parent"] = this;
 			setting["principal"] = true;
@@ -26,11 +29,30 @@ package com.igz.curri2.ui
 			setting2["principal"] = false;
 			setting2["color"] = 0xFFFFFF*Math.random();
 			SubCategorie = new CategoriesUi(setting2);	
+			Timeline = new TimeLineUi(Categorie);
+			addChild(Timeline);		
 			addChild(SubCategorie);
 			addChild(Categorie);
+			CurrentCategorie = Categorie;
 			SubCategorie.x = SubCategorie.width;
-			Categorie.x = 0;
+			$SetAndFixCategory();
+			
 		}
+		
+		public function $SetAndFixCategory():void
+		{
+			Timeline.$SetCategorie(CurrentCategorie);
+			var offsetx:Number = 0;
+			var offsety:Number = 0;		
+			if (CurrentCategorie.$IsPrincipal())
+			{//quitamos el tamaño del boton
+				offsetx =CurrentCategorie.$BtnMedidas.x;
+				offsety = CurrentCategorie.$BtnMedidas.y;
+			}
+			var posinx:Number = CurrentCategorie.x + CurrentCategorie.width-offsetx;		
+			var posiny:Number =CurrentCategorie.y + ((CurrentCategorie.height - Timeline.height-offsety) / 2);
+			TweenLite.to(Timeline, 0.4, { x:posinx,y:posiny} );
+			}
 		
 		public function $AddCategorie(p_categories:Array):void
 		{
@@ -52,14 +74,18 @@ package com.igz.curri2.ui
 		
 		public function $ShowCategorie():void
 		{
-			TweenLite.to(Categorie, 0.5, { x:0} )	;
-			TweenLite.to(SubCategorie, 0.5, { x:-SubCategorie.width} )	;
+trace("Se llama a $ShowCategorie");			
+			CurrentCategorie = Categorie;
+			TweenLite.to(Categorie, 0.5, { x:0 ,"onComplete":$SetAndFixCategory} )	;
+			TweenLite.to(SubCategorie, 0.5, { x: -SubCategorie.width } )	;
+			
 		}
 
 		public function $HideCategorie():void
 		{
-			TweenLite.to(Categorie, 0.5, { x:40-Categorie.width} )	;
-			TweenLite.to(SubCategorie, 0.5, { x:10} )	;
+			TweenLite.to(Categorie, 0.5, { x:40-Categorie.width} );
+			CurrentCategorie = SubCategorie;
+			TweenLite.to(SubCategorie, 0.5, { x:10,"onComplete":$SetAndFixCategory} )	;
 		}		
 		
 		

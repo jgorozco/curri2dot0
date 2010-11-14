@@ -5,6 +5,7 @@ package com.igz.curri2.ui
 	import com.igz.curri2.frwk.CategoryDto;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	import igz.fleaxy.ui.LinkUi;
 	import igz.fleaxy.ui.text.LabelUi;
 	import igz.fleaxy.util.ObjectUtil;
@@ -26,7 +27,11 @@ package com.igz.curri2.ui
 		
 		private var _Settings:Object={ "width" : 80
 									, "height" : 300
+									, "btnWith":30
+									, "btnHeight":20
 									};
+		public var $BtnMedidas:Point;							
+									
 		public function CategoriesUi(p_settings:Object) 
 		{
 			_CategoriesData = new Array();
@@ -35,6 +40,7 @@ package com.igz.curri2.ui
 			ObjectUtil.$Merge( p_settings, _Settings );
 			_Parent = (p_settings["parent"] as ComboCategoriesUI);
 			_principal = (p_settings["principal"]as Boolean);
+			$BtnMedidas = new Point(Number(_Settings["btnWith"]), Number(_Settings["btnHeight"]));
 			var color:Number = (_Settings["color"] as Number);
 			trace("IS PRINCIPAL?"+_principal);
 			$IsHidden = _principal;
@@ -55,6 +61,13 @@ package com.igz.curri2.ui
 				_BackButton.visible = false;
 			}
 		}
+		
+		
+		public function $IsPrincipal(): Boolean
+		{
+			return _principal;	
+		}		
+		
 		
 		public function $ClearAllCategories():void
 		{
