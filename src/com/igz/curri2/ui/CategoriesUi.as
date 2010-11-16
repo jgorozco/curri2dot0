@@ -40,9 +40,16 @@ package com.igz.curri2.ui
 			ObjectUtil.$Merge( p_settings, _Settings );
 			_Parent = (p_settings["parent"] as ComboCategoriesUI);
 			_principal = (p_settings["principal"]as Boolean);
-			$BtnMedidas = new Point(Number(_Settings["btnWith"]), Number(_Settings["btnHeight"]));
+			
 			var color:Number = (_Settings["color"] as Number);
-			trace("IS PRINCIPAL?"+_principal);
+			trace("IS PRINCIPAL?" + _principal);
+			if (_principal == true)
+			{
+				$BtnMedidas = new Point(Number(_Settings["btnWith"]), Number(_Settings["btnHeight"]));
+			}else
+			{
+				$BtnMedidas = new Point(0,0);
+			}
 			$IsHidden = _principal;
 			graphics.beginFill(color);
 			graphics.drawRect(0, 0, _Settings["width"], _Settings["height"]);
