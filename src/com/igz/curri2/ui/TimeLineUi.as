@@ -62,12 +62,13 @@ package com.igz.curri2.ui
 			clicked.x = (scr.width-clicked.width)/2;*/
 			_Selector = new LinkUi(clicked, { "onMouseDown" : _OnSelectorMouseDown
 											, "onMouseUp"   : _OnSelectorMouseUp 
+											, "onMouseMove"   : _OnSelectorMouseUp 
 											} 
 								  );
 			_selectorActualPercent = 0;
-			
-			
 			addChild(_Selector);
+			
+			
 			_resizeTimeline();
 		}
 		
@@ -92,7 +93,6 @@ package com.igz.curri2.ui
 			_Selector.stopDrag();
 			_selectorActualPercent = _Selector.x / _MaxHeight;
 			trace("_OnSelectorMouseUp");
-		//	_CalculatePercent(_Selector.x,);
 		}		
 		
 		private function _SetCategorie(p_categorie:CategoriesUi):void
@@ -104,6 +104,7 @@ package com.igz.curri2.ui
 		public function $SetCategorie(p_categorie:CategoriesUi):void
 		{
 		_SetCategorie(p_categorie);
+		//TODO añadir los textos de las fechas.
 		_resizeTimeline();
 		}
 		
