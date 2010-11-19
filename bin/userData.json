@@ -9,7 +9,8 @@
             "Poblation": "Madrid",
             "Nationality": "Española",
             "Mail": "aaaaa@fdssfs.es",
-            "Photo": "http://lh3.ggpht.com/_z5BKP2TY3eg/SxgvhRZZ7fI/AAAAAAAAA7M/zJtBElLd34w/orla.jpg" 
+            "Photo": "http://lh3.ggpht.com/_z5BKP2TY3eg/SxgvhRZZ7fI/AAAAAAAAA7M/zJtBElLd34w/orla.jpg",
+			"initialDate": "01/06/2007"
         },
         "Proyects": [
             {
