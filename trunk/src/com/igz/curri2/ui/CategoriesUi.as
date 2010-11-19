@@ -31,7 +31,9 @@ package com.igz.curri2.ui
 									, "btnHeight":20
 									};
 		public var $BtnMedidas:Point;							
-									
+							
+		
+		
 		public function CategoriesUi(p_settings:Object) 
 		{
 			_CategoriesData = new Array();
@@ -69,6 +71,10 @@ package com.igz.curri2.ui
 			}
 		}
 		
+		public function $GetCategories():Array
+		{
+		return _CategoriesData;	
+		}
 		
 		public function $IsPrincipal(): Boolean
 		{

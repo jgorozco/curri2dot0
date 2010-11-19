@@ -29,7 +29,6 @@
 		}
 
 		public function Frwk() : void {
-
 		}
 
 		public function $Init(p_complete:Function ) : void {
@@ -60,6 +59,24 @@
 			return returned;	
 		}		
 		
+		
+		public function $GetProyectFromCategorie(p_categorie:CategoryDto):Array
+		{
+			var arrOut:Array = new Array();
+			var i:int = 0;
+			var auxp:ProyectDto;
+			for (i = 0; i < $ArrayProyects.length; i++)
+			{
+				auxp = ($ArrayProyects[i] as ProyectDto);
+				if ((auxp.Category == p_categorie.$Name) || (auxp.SubCategory == p_categorie.$Name))
+				{
+					arrOut.push(auxp);
+				}
+				
+			}
+			return arrOut;
+		}
+		
 		private function _OnCompleteLoad(p_event:CommEvent):void
 		{
 			if (p_event.$CommResponseType==CommResponseType.$JSON)
@@ -76,6 +93,7 @@
 			for each (var itm:Object in arr) 
 				{
 					aux = new ProyectDto();
+					//sacamos la fecha minima para la grafica
 					aux.$LoadFromJson(itm);
 					$ArrayProyects.push(aux);
 					category = new CategoryDto();
