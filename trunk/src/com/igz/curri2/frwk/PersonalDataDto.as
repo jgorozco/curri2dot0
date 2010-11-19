@@ -1,6 +1,8 @@
 package com.igz.curri2.frwk 
 {
 	import igz.fleaxy.pattern.Dto;
+	import igz.fleaxy.util.DateTimeFormat;
+	import igz.fleaxy.util.DateTimeUtil;
 	/**
 	 * ...
 	 * @author ...
@@ -16,7 +18,8 @@ package com.igz.curri2.frwk
 		public var Poblation:String="";
 		public var Nationality:String="";
 		public var Mail:String="";
-		public var Photo:String="";
+		public var Photo:String = "";
+		public var DateInit:Date;
 		
 	
 		public function PersonalDataDto() 
@@ -35,6 +38,11 @@ package com.igz.curri2.frwk
 		this.Photo = p_object.Photo;
 		this.Poblation = p_object.Poblation;
 		this.University = p_object.University;
+		var aux:String = (p_object.initialDate as String);
+		if (DateTimeUtil.$Validate(aux)) {		
+				
+				this.DateInit = DateTimeUtil.$ToDate(aux, DateTimeFormat.DEFAULT_DATE);
+		}
 		}
 	}
 
