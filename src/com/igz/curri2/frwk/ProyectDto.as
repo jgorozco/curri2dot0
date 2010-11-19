@@ -35,8 +35,9 @@ package com.igz.curri2.frwk
 			if (DateTimeUtil.$IsDateTimeType(p_object.EndDate)){
 				this.EndDate = DateTimeUtil.$ToDate(p_object.EndDate, DateTimeFormat.DEFAULT_DATE);
 			}
-			if (DateTimeUtil.$IsDateTimeType(p_object.InitDate)){			
-				this.InitDate = DateTimeUtil.$ToDate(p_object.InitDate,DateTimeFormat.DEFAULT_DATE);
+			if (DateTimeUtil.$Validate(p_object.InitDate)) {		
+				
+				this.InitDate = DateTimeUtil.$ToDate((p_object.InitDate as String), DateTimeFormat.DEFAULT_DATE);
 			}
 			this.SubCategory = p_object.SubCategory;
 		}		
