@@ -92,6 +92,8 @@ trace("CREATING TIMELINE");
 		}
 		
 		
+
+		
 		
 		private function _OnSelectorMouseMove(p_event:MouseEvent):void
 		{
@@ -150,7 +152,6 @@ trace("CREATING TIMELINE");
 			var inn:int = 0;	
 			var actualp:ProyectDto;
 		
-			
 			_DateInit.text = df.format(_InitialDate);
 			_DateFinish.text =  df.format(_EndDate);
 			_DateSelected.text=df.format(_SelectedDate);
@@ -158,8 +159,47 @@ trace("CREATING TIMELINE");
 			_resizeTimeline();
 		}
 		
+		private function _InitArrayDates():Array
+		{
+			var arr:Array = new Array();
+			var mesesTot:int = 0;
+			//1000*60*60*24*30
+			//mesesTot = (_EndDate.getTime() - _InitialDate.getTime()) / 2592000000;
+			mesesTot = (_EndDate.getFullYear() * 12 + _EndDate.getMonth()) - (_InitialDate.getFullYear() * 12 + _InitialDate.getMonth());
+			trace("numero de meses:" + mesesTot);
+			for (var i:int = 0; i < mesesTot; i++)
+				{
+				arr.push(0);
+				}
+			return arr;
+			}
+		
 		private function _CreateMapFromCategorie(p_categorie:String, p_proyects:Array ):void
 		{
+			var p:ProyectDto;
+			var i:int = 0;
+			var arrTimes:Array = _MapLines[p_categorie];
+			if  (arrTimes == null)
+			{
+			arrTimes = _InitArrayDates();	
+			}
+			for (i = 0; i < p_proyects.length; i++)
+			{
+				p = ( p_proyects[i] as  ProyectDto);
+				if ((p.Category == p_categorie) || (p.SubCategory == p_categorie))
+				{
+					//numero de meses desde el inicio de la barra de tiempo desde que empezo
+					var initM:Number = (p.InitDate.getFullYear() * 12 + p.InitDate.getMonth()) - (_InitialDate.getFullYear() * 12 + _InitialDate.getMonth());
+					//numero de meses desde el inicio de la barra de tiempo desde que termino
+					var finishM:Number= (p.EndDate.getFullYear() * 12 + p.EndDate.getMonth()) - (_InitialDate.getFullYear() * 12 + _InitialDate.getMonth());
+					for (var j:Number = initM; j < finishM; j++)
+						{
+								arrTimes[j] = arrTimes[j] + 1;
+						}
+					}
+			}
+				_MapLines[p_categorie] = arrTimes;
+				trace("El array de ["+p_categorie+"] tiene lo sig["+arrTimes+"]");
 			//TODO COGEMOS UNA CATEGORIA Y UN ARRAY DE PROYECTOS
 			// y por cada mes entre este mes y la diferencia de meses sumamos uno en plan
 			//[ 0,0,0,1,1,1,1,2,2,2,2,2,1,1,1] por cada proyecto  en esta tecnologia, por ejemplo 
