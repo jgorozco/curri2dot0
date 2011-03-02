@@ -3,12 +3,14 @@ package com.igz.curri2.ui
 	import com.igz.curri2.Frwk;
 	import com.igz.curri2.frwk.CategoryDto;
 	import com.igz.curri2.frwk.ProyectDto;
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
 	import igz.fleaxy.Fleaxy;
 	import igz.fleaxy.ui.LinkUi;
 	import igz.fleaxy.ui.text.LabelUi;
+	import igz.fleaxy.util.SpriteUtil;
 	import mx.formatters.DateFormatter;
 	/**
 	 * ...
@@ -16,6 +18,9 @@ package com.igz.curri2.ui
 	 */
 	public class TimeLineUi extends Sprite
 	{
+		
+		private var MAXHEIGHT:Number = 500;
+		private var OFFSET:Number =25;
 		public var $Bg:Sprite;
 		private var _CategorieList:CategoriesUi;
 		public var $Timeline:Sprite;
@@ -32,11 +37,10 @@ package com.igz.curri2.ui
 		private var _InitialDate:Date;
 		private var _EndDate:Date;
 		private var _SelectedDate:Date;
-		
 		private var df:DateFormatter;
-		
-		
 		private var _MapLines:Object;
+		private var _ListCategories:Array;	
+		private var _LIneContainter:Sprite;
 		
 		public function TimeLineUi(p_categorie:CategoriesUi=null) 
 		{
@@ -45,10 +49,15 @@ package com.igz.curri2.ui
 			$Bg = new Sprite();
 			_EndDate = new Date();
 			$Bg.graphics.beginFill(0xffff055);
-			$Bg.graphics.drawRect(0, 0, 500, p_categorie.height);
+			$Bg.graphics.drawRect(0, 0, MAXHEIGHT, p_categorie.height);
 			$Bg.graphics.endFill();
 			addChild($Bg);
-			_MaxHeight = 500;
+			_LIneContainter = new Sprite();
+			_LIneContainter.graphics.beginFill(0x00ff00,0.5);
+			_LIneContainter.graphics.drawRect(0, 0, $Bg.width, $Bg.height);
+			_LIneContainter.graphics.endFill();
+			addChild(_LIneContainter);
+			_MaxHeight = MAXHEIGHT;
 			_SelectorPushed = false;
 			_localX = 0;
 			if (p_categorie != null)
@@ -130,6 +139,7 @@ trace("CREATING TIMELINE");
 		public function $SetCategorie(p_categorie:CategoriesUi):void
 		{
 			_MapLines = new Object();
+			_ListCategories = new Array();
 			_SetCategorie(p_categorie);
 			var categories:Array = p_categorie.$GetCategories();
 			var category:CategoryDto;
@@ -191,6 +201,7 @@ trace("CREATING TIMELINE");
 					//numero de meses desde el inicio de la barra de tiempo desde que empezo
 					var initM:Number = (p.InitDate.getFullYear() * 12 + p.InitDate.getMonth()) - (_InitialDate.getFullYear() * 12 + _InitialDate.getMonth());
 					//numero de meses desde el inicio de la barra de tiempo desde que termino
+	
 					var finishM:Number= (p.EndDate.getFullYear() * 12 + p.EndDate.getMonth()) - (_InitialDate.getFullYear() * 12 + _InitialDate.getMonth());
 					for (var j:Number = initM; j < finishM; j++)
 						{
@@ -198,13 +209,32 @@ trace("CREATING TIMELINE");
 						}
 					}
 			}
+			
 				_MapLines[p_categorie] = arrTimes;
-				trace("El array de ["+p_categorie+"] tiene lo sig["+arrTimes+"]");
-			//TODO COGEMOS UNA CATEGORIA Y UN ARRAY DE PROYECTOS
-			// y por cada mes entre este mes y la diferencia de meses sumamos uno en plan
-			//[ 0,0,0,1,1,1,1,2,2,2,2,2,1,1,1] por cada proyecto  en esta tecnologia, por ejemplo 
-			//lo de antes seria, al principio ningun proyecto, luego 1 luego 2  y luego 1 de nuevo
+				_ListCategories.push(p_categorie);
+				_DrawTimeLineLines();
 		}
+		
+		private function _DrawTimeLineLines():void
+		{
+			SpriteUtil.$RemoveChildsOf(_LIneContainter);
+			for (var i:Number = 0; i < _ListCategories.length; i++)
+			{
+			var d:DisplayObject=_CategorieList.getChildByName(_ListCategories[i]);
+			trace("posic [" + _ListCategories[i] + "] x[" + d.x + "]  y[" + d.y + "]");
+			var s:Sprite = new Sprite();
+			s.graphics.beginFill(0x00ff00);
+			s.graphics.lineStyle(1, 0XD1D1D1, 1, true);
+			s.graphics.moveTo(0, d.y+OFFSET);
+			s.graphics.lineTo($Timeline.x, $Timeline.y+OFFSET-5);
+			s.graphics.endFill();
+			s.name = "lines";
+			_LIneContainter.addChild(s);
+			}
+					
+			
+		}
+		
 		
 		private function _SetCurrentDate(p_number:Number):void
 		{
@@ -220,6 +250,7 @@ trace("CREATING TIMELINE");
 		{
 			_MaxHeight = Fleaxy.$Current.$Stage.stageWidth - (_CategorieList.width + _CategorieList.x)+_CategorieList.$BtnMedidas.x	;
 			$Bg.width = _MaxHeight;
+			//_LIneContainter.width = _MaxHeight;
 			$Timeline.width = _MaxHeight * 0.9;
 			$Timeline.y =(this.height - $Timeline.height) / 2;
 			$Timeline.x = _MaxHeight * 0.05;
