@@ -41,7 +41,7 @@ package com.igz.curri2.ui
 		private var _MapLines:Object;
 		private var _ListCategories:Array;	
 		private var _LIneContainter:Sprite;
-		
+		private var _MesesTot:Number;
 		public function TimeLineUi(p_categorie:CategoriesUi=null) 
 		{
 			df= new DateFormatter();
@@ -172,12 +172,12 @@ trace("CREATING TIMELINE");
 		private function _InitArrayDates():Array
 		{
 			var arr:Array = new Array();
-			var mesesTot:int = 0;
+			_MesesTot= 0;
 			//1000*60*60*24*30
 			//mesesTot = (_EndDate.getTime() - _InitialDate.getTime()) / 2592000000;
-			mesesTot = (_EndDate.getFullYear() * 12 + _EndDate.getMonth()) - (_InitialDate.getFullYear() * 12 + _InitialDate.getMonth());
-			trace("numero de meses:" + mesesTot);
-			for (var i:int = 0; i < mesesTot; i++)
+			_MesesTot = (_EndDate.getFullYear() * 12 + _EndDate.getMonth()) - (_InitialDate.getFullYear() * 12 + _InitialDate.getMonth());
+			trace("numero de meses:" + _MesesTot);
+			for (var i:int = 0; i <_MesesTot; i++)
 				{
 				arr.push(0);
 				}
@@ -223,10 +223,26 @@ trace("CREATING TIMELINE");
 			var d:DisplayObject=_CategorieList.getChildByName(_ListCategories[i]);
 			trace("posic [" + _ListCategories[i] + "] x[" + d.x + "]  y[" + d.y + "]");
 			var s:Sprite = new Sprite();
-			s.graphics.beginFill(0x00ff00);
-			s.graphics.lineStyle(1, 0XD1D1D1, 1, true);
+			s.graphics.beginFill(0x000000,0.01);
+			s.graphics.lineStyle(1,  0xFFFFFF*Math.random(), 4, true);
 			s.graphics.moveTo(0, d.y+OFFSET);
-			s.graphics.lineTo($Timeline.x, $Timeline.y+OFFSET-5);
+			s.graphics.lineTo($Timeline.x, $Timeline.y + OFFSET - 5);
+			var ancho_mes:Number = Math.abs( _MaxHeight * 0.9 / _MesesTot);
+			var posx:Number = $Timeline.x;
+			var posy:Number = $Timeline.y + OFFSET - 5;
+			trace("_____________iniciamos en x[" + posx + "] y[" + posy + "]");
+			for (var j:Number = 0; j < _MesesTot; j++)
+			{
+				
+				posx = $Timeline.x+ j * ancho_mes;
+				posy =  $Timeline.y + OFFSET - 5-(_MapLines[_ListCategories[i]][j] * (10+(i*3)));
+				trace("pintamos linea en x[" + posx + "] y[" + posy + "]");
+				s.graphics.lineTo(posx, posy);
+				
+			}
+			s.graphics.lineTo( _MaxHeight *0.92 , $Timeline.y + OFFSET - 5);
+			s.graphics.lineTo($Timeline.x, $Timeline.y + OFFSET - 5);	
+			//TODO for 0 to numero de meses ir dibujando la linea  hacia arriba y hacia abajo dependiendo de como proceda
 			s.graphics.endFill();
 			s.name = "lines";
 			_LIneContainter.addChild(s);
