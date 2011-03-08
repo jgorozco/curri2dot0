@@ -23,7 +23,34 @@ package com.igz.curri2.ui
 		
 		public function MainWindowUi() 
 		{
-		var MySettings:Object = { "width" : 200
+		_addTimeline();
+		_addExtraPlugins();
+		_addProyectView();
+		_addPersonalData();
+		}
+		
+		private function _addTimeline():void
+		{
+			_ComboCategoriesUI = new ComboCategoriesUI();
+			_ComboCategoriesUI.$AddCategorie( Frwk.$Current.$Categories);
+			_ComboCategoriesUI.y = (Fleaxy.$Current.$Stage.stageHeight-_ComboCategoriesUI.height+120) / 2;
+			addChild(_ComboCategoriesUI);
+			_ComboCategoriesUI.$ShowCategorie();
+		}
+
+		private function _addPersonalData():void
+		{
+			_PersonalData = new PersonalDataUi();
+			_PersonalData.x = 150;
+			_PersonalData.y =-300;
+			addChild(_PersonalData);
+			_PersonalData.$LoadPersonalData(Frwk.$Current.$PersonalData);
+		}
+		
+		
+		private function _addExtraPlugins():void
+		{
+			var MySettings:Object = { "width" : 200
 						, "height" : 200
 						, "OnClickFunction" : _clickedFunction
 				        }
@@ -43,32 +70,12 @@ package com.igz.curri2.ui
 			
 		}
 		
-/*		addChild(_tagCloud);
+		addChild(_tagCloud);
 		_tagCloud.x = 50;
 		_tagCloud.y = 50;
-		
-		_PersonalData = new PersonalDataUi();
-		_PersonalData.x = 150;
-		_PersonalData.y =-300;
-		addChild(_PersonalData);
-		_PersonalData.$LoadPersonalData(Frwk.$Current.$PersonalData);
-		*/
-		_ComboCategoriesUI = new ComboCategoriesUI();
-		_ComboCategoriesUI.$AddCategorie( Frwk.$Current.$Categories);
-		_ComboCategoriesUI.y = (Fleaxy.$Current.$Stage.stageHeight-_ComboCategoriesUI.height+120) / 2;
-		addChild(_ComboCategoriesUI);
-		_ComboCategoriesUI.$ShowCategorie();
-/*		_Categories = new CategoriesUi(new Object());
-		_Categories.x = 200;
-		_Categories.y = 100;
-		addChild(_Categories);*/
-		//trace(Fleaxy.$Current.$Stage.stageHeight+"++"+_Categories.height);
-		//_Categories.y = (Fleaxy.$Current.$Stage.stageHeight-_Categories.height+120) / 2;
-		
-/*		var t:TimeLineUi = new TimeLineUi();
-		t.x = _Categories.x + _Categories.width;
-		t.y = _Categories.y;
-		addChild(t);*/
+		}		
+		private function _addProyectView():void
+		{
 		}
 		
 		private function _clickedFunction():void
