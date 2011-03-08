@@ -19,6 +19,8 @@ package com.igz.curri2.ui
 	public class TimeLineUi extends Sprite
 	{
 		
+		private var COLOR_TIME_LINE:Number = 0x000000;
+		private var COLOR_CONTAINER:Number=		 0xeeeeee;
 		private var MAXHEIGHT:Number = 500;
 		private var OFFSET:Number =25;
 		public var $Bg:Sprite;
@@ -48,12 +50,12 @@ package com.igz.curri2.ui
 			df.formatString = "MM-YYYY";
 			$Bg = new Sprite();
 			_EndDate = new Date();
-			$Bg.graphics.beginFill(0xffff055);
+			$Bg.graphics.beginFill(COLOR_CONTAINER,1);
 			$Bg.graphics.drawRect(0, 0, MAXHEIGHT, p_categorie.height);
 			$Bg.graphics.endFill();
 			addChild($Bg);
 			_LIneContainter = new Sprite();
-			_LIneContainter.graphics.beginFill(0x00ff00,0.5);
+			_LIneContainter.graphics.beginFill(0xeeeeee,0.0);
 			_LIneContainter.graphics.drawRect(0, 0, $Bg.width, $Bg.height);
 			_LIneContainter.graphics.endFill();
 			addChild(_LIneContainter);
@@ -71,7 +73,7 @@ trace("CREATING TIMELINE");
 			$Timeline.graphics.drawRect(0, 0, _MaxHeight * 0.9, 40);
 			$Timeline.graphics.endFill();
 			var _LineOfTimeline:Sprite = new Sprite();
-			_LineOfTimeline.graphics.beginFill(0x00ff00);
+			_LineOfTimeline.graphics.beginFill(COLOR_TIME_LINE,1);
 			_LineOfTimeline.graphics.drawRect(0, 0, _MaxHeight * 0.9,3);
 			_LineOfTimeline.graphics.endFill();
 			_LineOfTimeline.y = ($Timeline.height - _LineOfTimeline.height) / 2;
@@ -223,10 +225,25 @@ trace("CREATING TIMELINE");
 			var d:DisplayObject=_CategorieList.getChildByName(_ListCategories[i]);
 			trace("posic [" + _ListCategories[i] + "] x[" + d.x + "]  y[" + d.y + "]");
 			var s:Sprite = new Sprite();
-			s.graphics.beginFill(0x000000,0.01);
-			s.graphics.lineStyle(1,  0xFFFFFF*Math.random(), 4, true);
-			s.graphics.moveTo(0, d.y+OFFSET);
-			s.graphics.lineTo($Timeline.x, $Timeline.y + OFFSET - 5);
+		//	s.graphics.beginFill(0x000000,0.01);
+			s.graphics.lineStyle(3,  0xFFFFFF*Math.random(), 4, true);
+			s.graphics.moveTo(0, d.y + OFFSET);
+			var ori_x:Number = 0;
+			var ori_y:Number = d.y + OFFSET;
+			var des_x:Number = $Timeline.x;
+			var des_y:Number = $Timeline.y + OFFSET - 5;
+		//	s.graphics.lineTo(des_x, des_y);
+				var m_posx:Number = ori_x+(des_x-ori_x)/2;
+				var m_posy:Number = ori_y+(des_y-ori_y)/2;
+				var r_posx:Number = m_posx;// +(des_x - ori_x) / 4;
+				var r_posy:Number = (m_posy+ori_y)/2;
+				var r2_posx:Number = m_posx;// -(des_x - ori_x) / 4;
+				var r2_posy:Number =  (m_posy+des_y)/2;
+
+				s.graphics.curveTo(r_posx, r_posy, m_posx, m_posy);
+				s.graphics.curveTo(r2_posx, r2_posy, des_x, des_y);
+			ori_x=des_x;
+			ori_y=des_y;
 			var ancho_mes:Number = Math.abs( _MaxHeight * 0.9 / _MesesTot);
 			var posx:Number = $Timeline.x;
 			var posy:Number = $Timeline.y + OFFSET - 5;
@@ -234,16 +251,28 @@ trace("CREATING TIMELINE");
 			for (var j:Number = 0; j < _MesesTot; j++)
 			{
 				
-				posx = $Timeline.x+ j * ancho_mes;
-				posy =  $Timeline.y + OFFSET - 5-(_MapLines[_ListCategories[i]][j] * (10+(i*3)));
+				des_x = $Timeline.x+ j * ancho_mes;
+				des_y =  $Timeline.y + OFFSET - 5-(_MapLines[_ListCategories[i]][j] * (10+(i*3)));
 				trace("pintamos linea en x[" + posx + "] y[" + posy + "]");
-				s.graphics.lineTo(posx, posy);
+				m_posx = ori_x+(des_x-ori_x)/2;
+				m_posy = ori_y+(des_y-ori_y)/2;
+				r_posx = m_posx;// +(des_x - ori_x) / 4;
+				r_posy = (m_posy+ori_y)/2;
+				r2_posx = m_posx;// -(des_x - ori_x) / 4;
+				r2_posy =  (m_posy+des_y)/2;
+
+				s.graphics.curveTo(r_posx, r_posy, m_posx, m_posy);
+				s.graphics.curveTo(r2_posx, r2_posy, des_x, des_y);
+				ori_x=des_x;
+				ori_y=des_y;
+				
+				//	s.graphics.lineTo(posx, posy);
 				
 			}
 			s.graphics.lineTo( _MaxHeight *0.92 , $Timeline.y + OFFSET - 5);
 			s.graphics.lineTo($Timeline.x, $Timeline.y + OFFSET - 5);	
 			//TODO for 0 to numero de meses ir dibujando la linea  hacia arriba y hacia abajo dependiendo de como proceda
-			s.graphics.endFill();
+		//	s.graphics.endFill();
 			s.name = "lines";
 			_LIneContainter.addChild(s);
 			}
