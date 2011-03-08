@@ -198,13 +198,14 @@ trace("CREATING TIMELINE");
 			for (i = 0; i < p_proyects.length; i++)
 			{
 				p = ( p_proyects[i] as  ProyectDto);
+				trace(":::Comparing categories ["+p_categorie+"]==["+p.Category+"]||["+p.SubCategory+"]");
 				if ((p.Category == p_categorie) || (p.SubCategory == p_categorie))
 				{
 					//numero de meses desde el inicio de la barra de tiempo desde que empezo
 					var initM:Number = (p.InitDate.getFullYear() * 12 + p.InitDate.getMonth()) - (_InitialDate.getFullYear() * 12 + _InitialDate.getMonth());
 					//numero de meses desde el inicio de la barra de tiempo desde que termino
-	
-					var finishM:Number= (p.EndDate.getFullYear() * 12 + p.EndDate.getMonth()) - (_InitialDate.getFullYear() * 12 + _InitialDate.getMonth());
+					trace(":::proyect["+p.Name+"] ["+p.EndDate.toString()+"]<-->["+p.InitDate.toString()+"]");
+					var finishM:Number = (p.EndDate.getFullYear() * 12 + p.EndDate.getMonth()) - (_InitialDate.getFullYear() * 12 + _InitialDate.getMonth());
 					for (var j:Number = initM; j < finishM; j++)
 						{
 								arrTimes[j] = arrTimes[j] + 1;
@@ -223,7 +224,7 @@ trace("CREATING TIMELINE");
 			for (var i:Number = 0; i < _ListCategories.length; i++)
 			{
 			var d:DisplayObject=_CategorieList.getChildByName(_ListCategories[i]);
-			trace("posic [" + _ListCategories[i] + "] x[" + d.x + "]  y[" + d.y + "]");
+	//		trace("posic [" + _ListCategories[i] + "] x[" + d.x + "]  y[" + d.y + "]");
 			var s:Sprite = new Sprite();
 		//	s.graphics.beginFill(0x000000,0.01);
 			s.graphics.lineStyle(3,  0xFFFFFF*Math.random(), 4, true);
@@ -247,13 +248,13 @@ trace("CREATING TIMELINE");
 			var ancho_mes:Number = Math.abs( _MaxHeight * 0.9 / _MesesTot);
 			var posx:Number = $Timeline.x;
 			var posy:Number = $Timeline.y + OFFSET - 5;
-			trace("_____________iniciamos en x[" + posx + "] y[" + posy + "]");
+	//		trace("_____________iniciamos en x[" + posx + "] y[" + posy + "]");
 			for (var j:Number = 0; j < _MesesTot; j++)
 			{
 				
 				des_x = $Timeline.x+ j * ancho_mes;
 				des_y =  $Timeline.y + OFFSET - 5-(_MapLines[_ListCategories[i]][j] * (10+(i*3)));
-				trace("pintamos linea en x[" + posx + "] y[" + posy + "]");
+//				trace("pintamos linea en x[" + posx + "] y[" + posy + "]");
 				m_posx = ori_x+(des_x-ori_x)/2;
 				m_posy = ori_y+(des_y-ori_y)/2;
 				r_posx = m_posx;// +(des_x - ori_x) / 4;
