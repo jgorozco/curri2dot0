@@ -20,6 +20,7 @@ package com.igz.curri2.ui
 		private var _PersonalData:PersonalDataUi;
 		private var _ComboCategoriesUI:ComboCategoriesUI;
 		private var _SecondaryCategories:CategoriesUi;
+		private var _ProyectUi:ProyectUi;
 		
 		public function MainWindowUi() 
 		{
@@ -76,6 +77,9 @@ package com.igz.curri2.ui
 		}		
 		private function _addProyectView():void
 		{
+			_ProyectUi = new ProyectUi();
+			addChild(_ProyectUi);
+			_ProyectUi.y = (Fleaxy.$Current.$Stage.stageHeight - _ProyectUi.$HeaderHeight);
 		}
 		
 		private function _clickedFunction():void
