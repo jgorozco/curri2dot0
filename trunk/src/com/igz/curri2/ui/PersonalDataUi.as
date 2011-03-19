@@ -1,6 +1,7 @@
 package com.igz.curri2.ui 
 {
 	import com.greensock.TweenLite;
+	import com.igz.curri2.Frwk;
 	import com.igz.curri2.frwk.PersonalDataDto;
 	import flash.display.Bitmap;
 	import flash.display.Loader;
@@ -45,9 +46,9 @@ package com.igz.curri2.ui
 		public function PersonalDataUi() 
 		{
 			var s:Sprite = new Sprite();
-			s.graphics.beginFill(0xB1B1B1);
+			s.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetStyleColor("bg_personal_data") );
 		//	s.graphics.drawRect(0, 0, 700, 370);
-			s.graphics.lineStyle(1, 0XD1D1D1, 1, true);
+			s.graphics.lineStyle(1,Frwk.$Current.$ThemeManager.$GetStyleColor("bg_personal_line") , 1, true);
 			s.graphics.moveTo(0, 0);
 			s.graphics.lineTo(700,0);
 			s.graphics.lineTo(700, 280);

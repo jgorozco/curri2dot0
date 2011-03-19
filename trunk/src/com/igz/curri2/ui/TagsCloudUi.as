@@ -1,5 +1,6 @@
 package com.igz.curri2.ui 
 {
+	import com.igz.curri2.Frwk;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
@@ -38,21 +39,21 @@ package com.igz.curri2.ui
 			this.mouseEnabled = true;
 			_CurrentTag = "";
 			_tags = new Array();
-			_Settings = { "width" : 200
-						, "height" : 200
+			_Settings = { "width" : 180
+						, "height" : 180
 						, "OnClickFunction" : null
 				        }
 			ObjectUtil.$Merge( p_settings, _Settings );		
 			_Media = (_Settings["width"] + _Settings["width"])/16;
 			_OnClickFunction=p_settings["OnClickFunction"];
-			_Bg= new Sprite();
-			_Bg.graphics.beginFill(0x00ff00);
-			_Bg.graphics.drawRect(0, 0, _Settings["width"], _Settings["height"]);
+			_Bg = new Sprite();
+			_Bg.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetStyleColor("line_scuare_1"),0.2);
+			_Bg.graphics.drawRoundRect(0, 0, _Settings["width"], _Settings["height"],60);
 			_Bg.graphics.endFill();
 			addChild(_Bg);
 			_TagsContainer= new Sprite();
-			_TagsContainer.graphics.beginFill(0x0000ff00);
-			_TagsContainer.graphics.drawRect(0, 0, _Settings["width"], _Settings["height"]);
+			_TagsContainer.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetStyleColor("line_scuare_1"),0.2);
+			_TagsContainer.graphics.drawRoundRect(0, 0, _Settings["width"], _Settings["height"],60);
 			_TagsContainer.graphics.endFill();
 			addChild(_TagsContainer);
 			_TagsContainer.addEventListener(MouseEvent.MOUSE_OVER, _OnMouseover);
@@ -194,6 +195,7 @@ package com.igz.curri2.ui
 			{
 				var rect:Rectangle = lab.getRect(_TagsContainer);
 				var localRect:Rectangle = (_tags[i] as DisplayObject).getRect(_TagsContainer);
+				
 				while (rect.intersects(localRect))
 				{
 					lab.x = Math.random() * _TagsContainer.width;
