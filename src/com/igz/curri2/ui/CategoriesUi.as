@@ -2,6 +2,7 @@ package com.igz.curri2.ui
 {
 	import com.greensock.plugins.VolumePlugin;
 	import com.greensock.TweenLite;
+	import com.igz.curri2.Frwk;
 	import com.igz.curri2.frwk.CategoryDto;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
@@ -28,7 +29,7 @@ package com.igz.curri2.ui
 		private var _Settings:Object={ "width" : 80
 									, "height" : 300
 									, "btnWith":30
-									, "btnHeight":20
+									, "btnHeight":30
 									};
 		public var $BtnMedidas:Point;							
 							
@@ -54,19 +55,19 @@ package com.igz.curri2.ui
 			}
 			$IsHidden = _principal;
 			graphics.beginFill(color);
-			graphics.drawRect(0, 0, _Settings["width"], _Settings["height"]);
+			graphics.drawRoundRect(0, 0, _Settings["width"], _Settings["height"],40);
 			graphics.endFill();
 
 			if (_principal)
 			{
 				var linked:Sprite = new Sprite();
-				linked.graphics.beginFill(0x00ff00);
-				linked.graphics.drawRect(0, 0, 30, 20);
+				linked.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetStyleColor("close_button"));
+				linked.graphics.drawRoundRect(0, 0, _Settings["btnWith"], _Settings["btnHeight"],_Settings["btnWith"]);
 				linked.graphics.endFill();
 				_BackButton = new LinkUi(linked, { "onClick":_OnClickReturn } );
 				addChild(_BackButton);
-				_BackButton.x =this.width;
-				_BackButton.y = -_BackButton.height;
+				_BackButton.x =this.width-_Settings["btnWith"]/2;
+				_BackButton.y = -_BackButton.height/2;
 				_BackButton.visible = false;
 			}
 		}
@@ -99,6 +100,7 @@ package com.igz.curri2.ui
 			linkUi.name = p_categore.$Name;
 			_Categories.push(linkUi);
 			addChild(linkUi);
+			trace("colocamos las etiquetas");
 			_ColocarEtiquetas();
 		}
 		
@@ -108,10 +110,13 @@ package com.igz.curri2.ui
 			var positioned:Number = 0;
 			var maxHeight:Number = (_Categories[0] as LinkUi).height * etiqs;
 			(_Categories[0] as LinkUi).x = this.width - (_Categories[0] as LinkUi).width;
+			var maxW:int ;
 			if (etiqs == 1)
 			{
 				positioned = _Settings["height"];
 				(_Categories[0] as LinkUi).y = (_Settings["height"] - (_Categories[0] as LinkUi).height) / 2;
+				(_Categories[0] as LinkUi).x = this.width - (_Categories[0] as LinkUi).width+5;
+				maxW=(_Categories[0] as LinkUi).width;
 			}else
 			{
 				(_Categories[0] as LinkUi).y = 0;
@@ -120,18 +125,30 @@ package com.igz.curri2.ui
 					_Settings["height"] = maxHeight;
 				}
 				positioned = _Settings["height"] / etiqs;
-				for (var i:Number = 1; i < etiqs; i++)
+				maxW =  (_Categories[0] as LinkUi).width + 60;
+				trace("__escribiendo ["+maxW+"]");
+				for (var i:Number = 0; i < etiqs; i++)
 				{
-					(_Categories[i] as LinkUi).y = ( positioned * i) - ((_Categories[i] as LinkUi).height) / 2;
+					(_Categories[i] as LinkUi).y = ( positioned * (i+0.4)) - ((_Categories[i] as LinkUi).height) / 2;
 					(_Categories[i] as LinkUi).x = this.width - (_Categories[i] as LinkUi).width;
+					if ((_Categories[i] as LinkUi).width > maxW)
+					{
+						maxW = ( _Categories[i] as LinkUi).width;
+						
+					}
+					trace("escribiendo ["+maxW+"]");
 				}
 			}
-			graphics.beginFill((_Settings["color"] as Number));
-			graphics.drawRect(0, 0, width, _Settings["height"]);
+			maxW = maxW ;
+		
+			//			graphics.beginFill((_Settings["color"] as Number));
+//			graphics.drawRect(0, 0, width, _Settings["height"]);
 			if (_principal)
 			{
-				_BackButton.x = width;
+				_BackButton.x = width-_Settings["btnWith"]/2;
 			}
+			graphics.beginFill(_Settings["color"] as Number);
+			graphics.drawRoundRect(0, 0, maxW+5, _Settings["height"], 40);
 			graphics.endFill();
 		}
 		

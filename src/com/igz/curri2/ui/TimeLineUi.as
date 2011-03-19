@@ -19,8 +19,8 @@ package com.igz.curri2.ui
 	public class TimeLineUi extends Sprite
 	{
 		
-		private var COLOR_TIME_LINE:Number = 0x000000;
-		private var COLOR_CONTAINER:Number=		 0xeeeeee;
+		private var COLOR_TIME_LINE:Number ;
+		private var COLOR_CONTAINER:Number;
 		private var MAXHEIGHT:Number = 500;
 		private var OFFSET:Number =25;
 		public var $Bg:Sprite;
@@ -52,12 +52,12 @@ package com.igz.curri2.ui
 			df.formatString = "MM-YYYY";
 			$Bg = new Sprite();
 			_EndDate = new Date();
-			$Bg.graphics.beginFill(COLOR_CONTAINER,1);
+			$Bg.graphics.beginFill( Frwk.$Current.$ThemeManager.$GetStyleColor("bg_timeline"),1);
 			$Bg.graphics.drawRect(0, 0, MAXHEIGHT, p_categorie.height);
 			$Bg.graphics.endFill();
 			addChild($Bg);
 			_LIneContainter = new Sprite();
-			_LIneContainter.graphics.beginFill(0xeeeeee,0.0);
+			_LIneContainter.graphics.beginFill( Frwk.$Current.$ThemeManager.$GetStyleColor("bg_timeline"),0.0);
 			_LIneContainter.graphics.drawRect(0, 0, $Bg.width, $Bg.height);
 			_LIneContainter.graphics.endFill();
 			addChild(_LIneContainter);
@@ -71,7 +71,7 @@ package com.igz.curri2.ui
 			}
 trace("___________CREATING TIMELINE________");
 			$Timeline = new Sprite();
-			$Timeline.graphics.beginFill(0x00ff00,0);
+			$Timeline.graphics.beginFill( Frwk.$Current.$ThemeManager.$GetStyleColor("line_timeline"),0);
 			$Timeline.graphics.drawRect(0, 0, _MaxHeight * 0.9, 40);
 			$Timeline.graphics.endFill();
 			var _LineOfTimeline:Sprite = new Sprite();

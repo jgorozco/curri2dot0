@@ -84,7 +84,7 @@ package com.igz.curri2.ui
 				}
 			_Content = new Sprite();
 			_Content.name = "content";
-			_Content.graphics.beginFill(0x000000, 0.3);
+			_Content.graphics.beginFill(0x000000, 0.0);
 			_Content.graphics.drawRect(0, 0, ProyectSheetUi.$SheetWidth * p_arr.length, this.height);
 			_Content.graphics.endFill();
 			for (var i:Number = 0; i < p_arr.length; i++)

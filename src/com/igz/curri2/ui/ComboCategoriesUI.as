@@ -1,6 +1,7 @@
 package com.igz.curri2.ui 
 {
 	import com.greensock.TweenLite;
+	import com.igz.curri2.Frwk;
 	import com.igz.curri2.frwk.CategoryDto;
 	import flash.display.Sprite;
 	
@@ -22,12 +23,12 @@ package com.igz.curri2.ui
 			var setting:Object = new Object();
 			setting["parent"] = this;
 			setting["principal"] = true;
-			setting["color"] = 0xFFFFFF*Math.random();			
+			setting["color"] = Frwk.$Current.$ThemeManager.$GetStyleColor("line_scuare_2");		
 			Categorie = new CategoriesUi(setting);
 			var setting2:Object = new Object();
 			setting2["parent"] = this;
 			setting2["principal"] = false;
-			setting2["color"] = 0xFFFFFF*Math.random();
+			setting2["color"] = Frwk.$Current.$ThemeManager.$GetStyleColor("line_scuare_1");		
 			SubCategorie = new CategoriesUi(setting2);	
 			Timeline = new TimeLineUi(Categorie);
 			addChild(Timeline);		

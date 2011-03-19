@@ -2,6 +2,7 @@
 	import com.igz.curri2.frwk.CategoryDto;
 	import com.igz.curri2.frwk.PersonalDataDto;
 	import com.igz.curri2.frwk.ProyectDto;
+	import com.igz.curri2.frwk.ThemeManager;
 	import com.igz.curri2.ui.CategoriesUi;
 	import igz.fleaxy.Fleaxy;
 	import igz.fleaxy.net.Comm;
@@ -19,6 +20,7 @@
 		public var $ArrayProyects:Array;
 		public var $ShowedProyects:Array;
 		public var $Categories:Array;
+		public var $ThemeManager:ThemeManager;
 		private var _onCompleteLoad:Function;
 		
 		static protected var _Current:Frwk;
@@ -34,6 +36,7 @@
 
 		public function $Init(p_complete:Function ) : void {
 			_onCompleteLoad = p_complete;
+			$ThemeManager = new ThemeManager();
 			Comm.$Get("userData.json", { onComplete:_OnCompleteLoad } );
 		}
 		

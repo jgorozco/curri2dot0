@@ -72,8 +72,8 @@ package com.igz.curri2.ui
 		}
 		
 		addChild(_tagCloud);
-		_tagCloud.x = 50;
-		_tagCloud.y = 50;
+		_tagCloud.x = 120;
+		_tagCloud.y = 20;
 		}		
 		private function _addProyectView():void
 		{
