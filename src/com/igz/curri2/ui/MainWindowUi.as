@@ -82,6 +82,13 @@ package com.igz.curri2.ui
 			_ProyectUi.y = (Fleaxy.$Current.$Stage.stageHeight - _ProyectUi.$HeaderHeight);
 		}
 		
+		
+		public function $ReloadProyectList(p_arr:Array):void
+		{
+			
+		_ProyectUi.$SetArrayProyects(p_arr);	
+		}
+		
 		private function _clickedFunction():void
 		{
 			trace("clicked function");

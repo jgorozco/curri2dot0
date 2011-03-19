@@ -6,6 +6,7 @@ package com.igz.curri2.ui
 	import flash.events.MouseEvent;
 	import igz.fleaxy.Fleaxy;
 	import igz.fleaxy.ui.LinkUi;
+	import igz.fleaxy.util.SpriteUtil;
 	/**
 	 * ...
 	 * @author 
@@ -16,7 +17,7 @@ package com.igz.curri2.ui
 		public  var $CompleterHeight:Number;
 		public var $Showed:Boolean;
 		private var _ShowBtn:LinkUi;
-		
+		private var  _Content:Sprite ;
 		public function ProyectUi() 
 		{
 			$Showed = false;
@@ -34,7 +35,7 @@ package com.igz.curri2.ui
 			s.graphics.endFill();
 			addChild(s);
 
-			
+			_Content = null;
 			var btn_show:Sprite;
 			btn_show = new Sprite();
 			btn_show.graphics.beginFill(0X666666);
@@ -73,11 +74,27 @@ package com.igz.curri2.ui
 		
 		public function $SetArrayProyects(p_arr:Array):void
 		{
+			//trace("Setting Array elements ["+p_arr.length+"]");
 			var proyect:ProyectDto;
-			for (var i:Number = 0, i < p_arr.length; i++)
+			var pSheet:ProyectSheetUi;
+			if (_Content != null)
 			{
-				
+				removeChild(_Content);
+				_Content = null;
+				}
+			_Content = new Sprite();
+			_Content.name = "content";
+			_Content.graphics.beginFill(0x000000, 0.3);
+			_Content.graphics.drawRect(0, 0, ProyectSheetUi.$SheetWidth * p_arr.length, this.height);
+			_Content.graphics.endFill();
+			for (var i:Number = 0; i < p_arr.length; i++)
+			{
+					pSheet = new ProyectSheetUi((p_arr[i] as ProyectDto));
+					_Content.addChild(pSheet);
+					pSheet.x = pSheet.width * i;
 			}
+			addChild(_Content);
+			_Content.x = (this.width-_Content.width) / 2;
 			
 		}
 		

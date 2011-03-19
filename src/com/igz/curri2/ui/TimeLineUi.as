@@ -44,6 +44,8 @@ package com.igz.curri2.ui
 		private var _ListCategories:Array;	
 		private var _LIneContainter:Sprite;
 		private var _MesesTot:Number;
+		
+		
 		public function TimeLineUi(p_categorie:CategoriesUi=null) 
 		{
 			df= new DateFormatter();
@@ -67,7 +69,7 @@ package com.igz.curri2.ui
 				_SetCategorie(p_categorie);	
 				_MaxHeight = Fleaxy.$Current.$Stage.stageWidth - (_CategorieList.width + _CategorieList.x)+_CategorieList.$BtnMedidas.x	;			
 			}
-trace("CREATING TIMELINE");
+trace("___________CREATING TIMELINE________");
 			$Timeline = new Sprite();
 			$Timeline.graphics.beginFill(0x00ff00,0);
 			$Timeline.graphics.drawRect(0, 0, _MaxHeight * 0.9, 40);
@@ -101,11 +103,7 @@ trace("CREATING TIMELINE");
 			_resizeTimeline();
 
 		}
-		
-		
 
-		
-		
 		private function _OnSelectorMouseMove(p_event:MouseEvent):void
 		{
 			if (p_event.buttonDown)
@@ -130,8 +128,26 @@ trace("CREATING TIMELINE");
 			_SelectorPushed = true;
 			_Selector.stopDrag();
 			_selectorActualPercent = _Selector.x / _MaxHeight;
-			trace("_OnSelectorMouseUp");
+			$UpdateProyectList();
+			//trace("_OnSelectorMouseUp");
 		}		
+		
+		public function $UpdateProyectList():void
+		{
+			Frwk.$Current.$ShowedProyects = new Array();
+			var auxProy:ProyectDto;
+			for (var i:Number=0; i < _LocalProyects.length; i++)
+			{
+				auxProy = (_LocalProyects[i] as ProyectDto);
+				trace("comparing ["+auxProy.InitDate+"] ["+_SelectedDate+"] ["+auxProy.EndDate+"]");
+				if ((_SelectedDate >= auxProy.InitDate) &&
+				    (_SelectedDate <= auxProy.EndDate))
+					{
+						Frwk.$Current.$ShowedProyects.push(_LocalProyects[i]);
+					}
+			}
+			Gui.$Current.MainWindow.$ReloadProyectList(Frwk.$Current.$ShowedProyects);
+		}
 		
 		private function _SetCategorie(p_categorie:CategoriesUi):void
 		{
@@ -140,6 +156,7 @@ trace("CREATING TIMELINE");
 		
 		public function $SetCategorie(p_categorie:CategoriesUi):void
 		{
+			trace("____________Set Category ["+p_categorie.$GetCategories()+"]_____________");
 			_MapLines = new Object();
 			_ListCategories = new Array();
 			_SetCategorie(p_categorie);
@@ -152,15 +169,25 @@ trace("CREATING TIMELINE");
 			_DifMonths = ((_EndDate.fullYear - _InitialDate.fullYear) * 12) + (_EndDate.getMonth() - _InitialDate.getMonth());
 	
 			_LocalProyects = new Array();
-			var auxArray:Array;
+			var auxArray:Array = new Array();
+				var auxArray2:Array;
 				for (count = 0; count < categories.length; count++)
 			{
 				category = (categories[count] as CategoryDto);
-				auxArray = Frwk.$Current.$GetProyectFromCategorie(category);
-				_CreateMapFromCategorie(category.$Name,auxArray);
-				auxArray.concat(_LocalProyects);
-				_LocalProyects = auxArray;
+				auxArray2 = Frwk.$Current.$GetProyectFromCategorie(category);
+				_CreateMapFromCategorie(category.$Name, auxArray2);
+				for ( var f:Number = 0; f < auxArray2.length; f++)
+				{
+					auxArray.push(auxArray2[f]);
+				}
+				//auxArray2.concat(auxArray);		
+				trace("proyectos ["+auxArray+"]");
 			}		
+			_LocalProyects = auxArray;
+			if ((_LocalProyects != null) && (_LocalProyects.length > 0))
+			{
+				$UpdateProyectList();
+			}
 			var inn:int = 0;	
 			var actualp:ProyectDto;
 		
@@ -169,6 +196,7 @@ trace("CREATING TIMELINE");
 			_DateSelected.text=df.format(_SelectedDate);
 		
 			_resizeTimeline();
+		
 		}
 		
 		private function _InitArrayDates():Array
@@ -178,7 +206,7 @@ trace("CREATING TIMELINE");
 			//1000*60*60*24*30
 			//mesesTot = (_EndDate.getTime() - _InitialDate.getTime()) / 2592000000;
 			_MesesTot = (_EndDate.getFullYear() * 12 + _EndDate.getMonth()) - (_InitialDate.getFullYear() * 12 + _InitialDate.getMonth());
-			trace("numero de meses:" + _MesesTot);
+			//trace("numero de meses:" + _MesesTot);
 			for (var i:int = 0; i <_MesesTot; i++)
 				{
 				arr.push(0);
@@ -198,19 +226,20 @@ trace("CREATING TIMELINE");
 			for (i = 0; i < p_proyects.length; i++)
 			{
 				p = ( p_proyects[i] as  ProyectDto);
-				trace(":::Comparing categories ["+p_categorie+"]==["+p.Category+"]||["+p.SubCategory+"]");
+				//trace(":::Comparing categories ["+p_categorie+"]==["+p.Category+"]||["+p.SubCategory+"]");
 				if ((p.Category == p_categorie) || (p.SubCategory == p_categorie))
 				{
 					//numero de meses desde el inicio de la barra de tiempo desde que empezo
 					var initM:Number = (p.InitDate.getFullYear() * 12 + p.InitDate.getMonth()) - (_InitialDate.getFullYear() * 12 + _InitialDate.getMonth());
 					//numero de meses desde el inicio de la barra de tiempo desde que termino
-					trace(":::proyect["+p.Name+"] ["+p.EndDate.toString()+"]<-->["+p.InitDate.toString()+"]");
+					//trace(":::proyect["+p.Name+"] ["+p.EndDate.toString()+"]<-->["+p.InitDate.toString()+"]");
 					var finishM:Number = (p.EndDate.getFullYear() * 12 + p.EndDate.getMonth()) - (_InitialDate.getFullYear() * 12 + _InitialDate.getMonth());
 					for (var j:Number = initM; j < finishM; j++)
 						{
 								arrTimes[j] = arrTimes[j] + 1;
 						}
 					}
+			//			$UpdateProyectList();
 			}
 			
 				_MapLines[p_categorie] = arrTimes;
@@ -224,7 +253,7 @@ trace("CREATING TIMELINE");
 			for (var i:Number = 0; i < _ListCategories.length; i++)
 			{
 			var d:DisplayObject=_CategorieList.getChildByName(_ListCategories[i]);
-	//		trace("posic [" + _ListCategories[i] + "] x[" + d.x + "]  y[" + d.y + "]");
+			//trace("posic [" + _ListCategories[i] + "] x[" + d.x + "]  y[" + d.y + "]");
 			var s:Sprite = new Sprite();
 		//	s.graphics.beginFill(0x000000,0.01);
 			s.graphics.lineStyle(3,  0xFFFFFF*Math.random(), 4, true);

@@ -17,6 +17,7 @@
 
 		public var $PersonalData:PersonalDataDto;
 		public var $ArrayProyects:Array;
+		public var $ShowedProyects:Array;
 		public var $Categories:Array;
 		private var _onCompleteLoad:Function;
 		
