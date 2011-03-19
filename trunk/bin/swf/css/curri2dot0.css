@@ -77,9 +77,23 @@ A:HOVER {
 	igz-antialias: advanced;
 
 }
-.default6{
+.CenterH2{
 	color: #000000;
 	font-family: Default;
-	font-size: 18;
+	font-size: 16;
+	igz-antialias: advanced;
+}
+
+.CenterH3{
+	color: #000000;
+	font-family: Default;
+	font-size: 14;
+	igz-antialias: advanced;
+}
+
+.Content{
+	color: #000000;
+	font-family: Default;
+	font-size: 12;
 	igz-antialias: advanced;
 }
