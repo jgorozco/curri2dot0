@@ -44,7 +44,8 @@ package com.igz.curri2.ui
 		private var _ListCategories:Array;	
 		private var _LIneContainter:Sprite;
 		private var _MesesTot:Number;
-		
+		private var _PersonalLabel:LabelUi;
+		private var _ProfesionalLabel:LabelUi;		
 		
 		public function TimeLineUi(p_categorie:CategoriesUi=null) 
 		{
@@ -53,12 +54,12 @@ package com.igz.curri2.ui
 			$Bg = new Sprite();
 			_EndDate = new Date();
 			$Bg.graphics.beginFill( Frwk.$Current.$ThemeManager.$GetStyleColor("bg_timeline"),1);
-			$Bg.graphics.drawRect(0, 0, MAXHEIGHT, p_categorie.height);
+			$Bg.graphics.drawRoundRect(0, 0, MAXHEIGHT, p_categorie.height,60,200);
 			$Bg.graphics.endFill();
 			addChild($Bg);
 			_LIneContainter = new Sprite();
 			_LIneContainter.graphics.beginFill( Frwk.$Current.$ThemeManager.$GetStyleColor("bg_timeline"),0.0);
-			_LIneContainter.graphics.drawRect(0, 0, $Bg.width, $Bg.height);
+			_LIneContainter.graphics.drawRoundRect(0, 0, $Bg.width, $Bg.height, 60, 200);
 			_LIneContainter.graphics.endFill();
 			addChild(_LIneContainter);
 			_MaxHeight = MAXHEIGHT;
@@ -69,14 +70,14 @@ package com.igz.curri2.ui
 				_SetCategorie(p_categorie);	
 				_MaxHeight = Fleaxy.$Current.$Stage.stageWidth - (_CategorieList.width + _CategorieList.x)+_CategorieList.$BtnMedidas.x	;			
 			}
-trace("___________CREATING TIMELINE________");
+//trace("___________CREATING TIMELINE________");
 			$Timeline = new Sprite();
 			$Timeline.graphics.beginFill( Frwk.$Current.$ThemeManager.$GetStyleColor("line_timeline"),0);
 			$Timeline.graphics.drawRect(0, 0, _MaxHeight * 0.9, 40);
 			$Timeline.graphics.endFill();
 			var _LineOfTimeline:Sprite = new Sprite();
 			_LineOfTimeline.graphics.beginFill(COLOR_TIME_LINE,1);
-			_LineOfTimeline.graphics.drawRect(0, 0, _MaxHeight * 0.9,3);
+			_LineOfTimeline.graphics.drawRoundRect(0, 0, _MaxHeight * 0.9,3,10,10);
 			_LineOfTimeline.graphics.endFill();
 			_LineOfTimeline.y = ($Timeline.height - _LineOfTimeline.height) / 2;
 			$Timeline.addChild(_LineOfTimeline);
@@ -100,6 +101,10 @@ trace("___________CREATING TIMELINE________");
 			clicked.addChild(_DateSelected);
 			_DateSelected.x =  -(_DateSelected.width / 2);
 			_DateSelected.y =  - 20;
+			_ProfesionalLabel = new LabelUi("Profesional proyects", "CenterH1");
+			_PersonalLabel = new LabelUi("Personal proyects", "CenterH1");
+			addChild(_ProfesionalLabel);
+			addChild(_PersonalLabel);
 			_resizeTimeline();
 
 		}
@@ -119,7 +124,7 @@ trace("___________CREATING TIMELINE________");
 			var Rec:Rectangle = $Timeline.getRect(this);
 			Rec.height = 0;
 			_Selector.startDrag(false,Rec );
-			trace("mouseDown");
+			//trace("mouseDown");
 			_localX = p_event.stageX;
 		}
 
@@ -129,7 +134,7 @@ trace("___________CREATING TIMELINE________");
 			_Selector.stopDrag();
 			_selectorActualPercent = _Selector.x / _MaxHeight;
 			$UpdateProyectList();
-			//trace("_OnSelectorMouseUp");
+			////trace("_OnSelectorMouseUp");
 		}		
 		
 		public function $UpdateProyectList():void
@@ -139,7 +144,7 @@ trace("___________CREATING TIMELINE________");
 			for (var i:Number=0; i < _LocalProyects.length; i++)
 			{
 				auxProy = (_LocalProyects[i] as ProyectDto);
-				trace("comparing ["+auxProy.InitDate+"] ["+_SelectedDate+"] ["+auxProy.EndDate+"]");
+				//trace("comparing ["+auxProy.InitDate+"] ["+_SelectedDate+"] ["+auxProy.EndDate+"]");
 				if ((_SelectedDate >= auxProy.InitDate) &&
 				    (_SelectedDate <= auxProy.EndDate))
 					{
@@ -156,7 +161,7 @@ trace("___________CREATING TIMELINE________");
 		
 		public function $SetCategorie(p_categorie:CategoriesUi):void
 		{
-			trace("____________Set Category ["+p_categorie.$GetCategories()+"]_____________");
+			//trace("____________Set Category ["+p_categorie.$GetCategories()+"]_____________");
 			_MapLines = new Object();
 			_ListCategories = new Array();
 			_SetCategorie(p_categorie);
@@ -181,7 +186,7 @@ trace("___________CREATING TIMELINE________");
 					auxArray.push(auxArray2[f]);
 				}
 				//auxArray2.concat(auxArray);		
-				trace("proyectos ["+auxArray+"]");
+				//trace("proyectos ["+auxArray+"]");
 			}		
 			_LocalProyects = auxArray;
 			if ((_LocalProyects != null) && (_LocalProyects.length > 0))
@@ -235,10 +240,16 @@ trace("___________CREATING TIMELINE________");
 					//trace(":::proyect["+p.Name+"] ["+p.EndDate.toString()+"]<-->["+p.InitDate.toString()+"]");
 					var finishM:Number = (p.EndDate.getFullYear() * 12 + p.EndDate.getMonth()) - (_InitialDate.getFullYear() * 12 + _InitialDate.getMonth());
 					for (var j:Number = initM; j < finishM; j++)
-						{
-								arrTimes[j] = arrTimes[j] + 1;
-						}
+					{
+							if (p.Profesional==true){
+										arrTimes[j] = arrTimes[j] + 1;
+								}
+								else
+								{
+									arrTimes[j] = arrTimes[j] + 100;
+								}
 					}
+				}
 			//			$UpdateProyectList();
 			}
 			
@@ -256,51 +267,81 @@ trace("___________CREATING TIMELINE________");
 			//trace("posic [" + _ListCategories[i] + "] x[" + d.x + "]  y[" + d.y + "]");
 			var s:Sprite = new Sprite();
 		//	s.graphics.beginFill(0x000000,0.01);
-			s.graphics.lineStyle(3,  0xFFFFFF*Math.random(), 4, true);
-			s.graphics.moveTo(0, d.y + OFFSET);
-			var ori_x:Number = 0;
-			var ori_y:Number = d.y + OFFSET;
-			var des_x:Number = $Timeline.x;
-			var des_y:Number = $Timeline.y + OFFSET - 5;
-		//	s.graphics.lineTo(des_x, des_y);
-				var m_posx:Number = ori_x+(des_x-ori_x)/2;
-				var m_posy:Number = ori_y+(des_y-ori_y)/2;
-				var r_posx:Number = m_posx;// +(des_x - ori_x) / 4;
-				var r_posy:Number = (m_posy+ori_y)/2;
-				var r2_posx:Number = m_posx;// -(des_x - ori_x) / 4;
-				var r2_posy:Number =  (m_posy+des_y)/2;
-
-				s.graphics.curveTo(r_posx, r_posy, m_posx, m_posy);
-				s.graphics.curveTo(r2_posx, r2_posy, des_x, des_y);
-			ori_x=des_x;
-			ori_y=des_y;
-			var ancho_mes:Number = Math.abs( _MaxHeight * 0.9 / _MesesTot);
-			var posx:Number = $Timeline.x;
-			var posy:Number = $Timeline.y + OFFSET - 5;
-	//		trace("_____________iniciamos en x[" + posx + "] y[" + posy + "]");
-			for (var j:Number = 0; j < _MesesTot; j++)
+		  var colorLine:Number = 0xFFFFFF * Math.random();
+			
+		  //TODO separar los numeros, para después dibujar 2 lineas
+		  var mustRepeat:Boolean = true;
+		  var isSecond:int = 0;
+		  s.graphics.lineStyle(3,colorLine, 4, true);
+			while (mustRepeat&&(isSecond<=1))
 			{
 				
-				des_x = $Timeline.x+ j * ancho_mes;
-				des_y =  $Timeline.y + OFFSET - 5-(_MapLines[_ListCategories[i]][j] * (10+(i*3)));
-//				trace("pintamos linea en x[" + posx + "] y[" + posy + "]");
-				m_posx = ori_x+(des_x-ori_x)/2;
-				m_posy = ori_y+(des_y-ori_y)/2;
-				r_posx = m_posx;// +(des_x - ori_x) / 4;
-				r_posy = (m_posy+ori_y)/2;
-				r2_posx = m_posx;// -(des_x - ori_x) / 4;
-				r2_posy =  (m_posy+des_y)/2;
-
-				s.graphics.curveTo(r_posx, r_posy, m_posx, m_posy);
-				s.graphics.curveTo(r2_posx, r2_posy, des_x, des_y);
+				mustRepeat = false;
+				s.graphics.moveTo(0, d.y + OFFSET);
+				var ori_x:Number = 0;
+				var ori_y:Number = d.y + OFFSET;
+				var des_x:Number = $Timeline.x;
+				var des_y:Number = $Timeline.y + OFFSET - 5;
+					var m_posx:Number = ori_x+(des_x-ori_x)/2;
+					var m_posy:Number = ori_y+(des_y-ori_y)/2;
+					var r_posx:Number = m_posx;// +(des_x - ori_x) / 4;
+					var r_posy:Number = (m_posy+ori_y)/2;
+					var r2_posx:Number = m_posx;// -(des_x - ori_x) / 4;
+					var r2_posy:Number =  (m_posy+des_y)/2;
+					s.graphics.curveTo(r_posx, r_posy, m_posx, m_posy);
+					s.graphics.curveTo(r2_posx, r2_posy, des_x, des_y);
 				ori_x=des_x;
 				ori_y=des_y;
-				
-				//	s.graphics.lineTo(posx, posy);
-				
+				var ancho_mes:Number = Math.abs( _MaxHeight * 0.9 / _MesesTot);
+				var posx:Number = $Timeline.x;
+				var posy:Number = $Timeline.y + OFFSET - 5;
+				for (var j:Number = 0; j < _MesesTot; j++)
+				{
+					
+					des_x = $Timeline.x + j * ancho_mes;
+					var altura:Number = _MapLines[_ListCategories[i]][j];
+					if (isSecond == 1)//linea de arriba
+					{
+						if (altura >= 100)
+						{
+							altura = Math.round(altura / 100);
+							mustRepeat = true;
+							altura = -altura;
+							
+						}						
+						//trace("2º:Estamos pintando en ["+altura+"]");
+						des_y =  $Timeline.y + OFFSET - 5-( altura* (10+(i*3)));
+						
+					}else
+					{
+						if (altura >= 100)
+						{
+							var aux:Number = Math.round(altura / 100);
+							altura = altura % 100;
+							mustRepeat = true;
+							
+						}						
+							//trace("1º:Estamos pintando en ["+altura+"]");
+						des_y =  $Timeline.y + OFFSET - 5-( altura* (10+(i*3)));
+					}
+	//				trace("pintamos linea en x[" + posx + "] y[" + posy + "]");
+					m_posx = ori_x+(des_x-ori_x)/2;
+					m_posy = ori_y+(des_y-ori_y)/2;
+					r_posx = m_posx;// +(des_x - ori_x) / 4;
+					r_posy = (m_posy+ori_y)/2;
+					r2_posx = m_posx;// -(des_x - ori_x) / 4;
+					r2_posy =  (m_posy+des_y)/2;
+					s.graphics.curveTo(r_posx, r_posy, m_posx, m_posy);
+					s.graphics.curveTo(r2_posx, r2_posy, des_x, des_y);
+					ori_x=des_x;
+					ori_y=des_y;
+					//	s.graphics.lineTo(posx, posy);
+					
+				}
+					isSecond = isSecond + 1;
+				s.graphics.lineTo( _MaxHeight *0.92 , $Timeline.y + OFFSET - 5);
+				s.graphics.lineTo($Timeline.x, $Timeline.y + OFFSET - 5);	
 			}
-			s.graphics.lineTo( _MaxHeight *0.92 , $Timeline.y + OFFSET - 5);
-			s.graphics.lineTo($Timeline.x, $Timeline.y + OFFSET - 5);	
 			//TODO for 0 to numero de meses ir dibujando la linea  hacia arriba y hacia abajo dependiendo de como proceda
 		//	s.graphics.endFill();
 			s.name = "lines";
@@ -335,7 +376,11 @@ trace("___________CREATING TIMELINE________");
 			_DateInit.y = $Timeline.y + _DateInit.height + 20;
 			_DateFinish.x =$Timeline.x+$Timeline.width-(_DateInit.width / 2);
 			_DateFinish.y = _DateInit.y;
-		}
+			_ProfesionalLabel.x = ($Bg.width - _ProfesionalLabel.width) / 2;
+			_ProfesionalLabel.y = 5;
+			_PersonalLabel.x = ($Bg.width-_PersonalLabel.width) / 2;
+			_PersonalLabel.y = $Bg.height - _PersonalLabel.height - 5;
+			}
 		
 		
 	}
