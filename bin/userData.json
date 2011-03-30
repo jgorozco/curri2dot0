@@ -1,14 +1,14 @@
 {
     "Data": {
         "UserData": {
-            "Name": "Jose García",
-            "Phone": "669976768",
+            "Name": "Jose García Orozco",
+            "Phone": "668874687",
             "Address": "c/Arroyo olivar 18",
             "University": "Universidad politecnica de madrid",
             "DriveLicense": "B",
             "Poblation": "Madrid",
             "Nationality": "Española",
-            "Mail": "aaaaa@fdssfs.es",
+            "Mail": "josegoupm@gmail.com",
             "Photo": "http://lh3.ggpht.com/_z5BKP2TY3eg/SxgvhRZZ7fI/AAAAAAAAA7M/zJtBElLd34w/orla.jpg",
 			"initialDate": "01/06/2007"
         },
@@ -21,7 +21,8 @@
                 "EndDate": "01/09/2008",
                 "Description": "CRUE CRUE CRUE CRUE CRUEs",
                 "Company": "Universidad Polit",
-                "Url": "File" 
+				"Profesional":"true",
+                "Url": "www.google.es"  
             },
             {
                 "Name": "CRUE1",
@@ -31,7 +32,8 @@
                 "EndDate": "01/12/2009",
                 "Description": "CRUE CRUE CRUE CRUE CRUEs1",
                 "Company": "Universidad Polit",
-                "Url": "File" 
+				"Profesional":"true",
+                "Url": "www.google.es"  
             },
             {
                 "Name": "CRUE2",
@@ -41,7 +43,8 @@
                 "EndDate": "01/03/2010",
                 "Description": "CRUE CRUE CRUE CRUE CRUEs2",
                 "Company": "Universidad Polit2",
-                "Url": "File2" 
+				"Profesional":"false",
+                "Url": "www.google.es" 
             },
             {
                 "Name": "CRUE3",
@@ -51,7 +54,8 @@
                 "EndDate": "",
                 "Description": "CRUE CRUE CRUE CRUE CRUEs2",
                 "Company": "Universidad Polit2",
-                "Url": "File2" 
+				"Profesional":"false",
+                "Url": "www.google.es" 
             }			
         ] 
     }
