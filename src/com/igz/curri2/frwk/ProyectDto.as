@@ -18,7 +18,8 @@ package com.igz.curri2.frwk
 		public var InitDate:Date=new Date();
 		public var EndDate:Date = new Date();
 		public var Description:String="";
-		public var Url:String="";
+		public var Url:String = "";
+		public var Profesional:Boolean=false;
 		
 		
 		public function ProyectDto() 
@@ -33,6 +34,13 @@ package com.igz.curri2.frwk
 			this.Company = p_object.Company;
 			this.Url = p_object.Url;
 			this.Description = p_object.Description;
+			if (p_object.Profesional == "true")
+			{
+				Profesional = true;	
+			}else
+			{
+				Profesional = false;
+			}
 			if (DateTimeUtil.$Validate(p_object.EndDate)){
 				this.EndDate = DateTimeUtil.$ToDate(p_object.EndDate, DateTimeFormat.DEFAULT_DATE);
 			}else
