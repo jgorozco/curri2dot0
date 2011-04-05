@@ -91,6 +91,17 @@ A:HOVER {
 	igz-antialias: advanced;
 }
 
+.CenterH3_u{
+	color: #000000;
+	font-family: Default;
+	font-size: 16;
+	text-decoration: underline;
+	igz-antialias: advanced;
+}
+
+
+
+
 .Content{
 	color: #000000;
 	font-family: Default;
