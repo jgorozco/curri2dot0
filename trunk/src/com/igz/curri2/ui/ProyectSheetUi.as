@@ -1,9 +1,13 @@
 package com.igz.curri2.ui 
 {
+	import com.igz.curri2.Frwk;
 	import com.igz.curri2.frwk.ProyectDto;
 	import flash.display.Sprite;
+	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
+	import flash.text.TextFieldAutoSize;
 	import igz.fleaxy.ui.LinkUi;
+	import igz.fleaxy.ui.scrollbar.ScrollContainerUi;
 	import igz.fleaxy.ui.text.LabelUi;
 	import igz.fleaxy.ui.text.TextUi;
 	import flash.net.navigateToURL;
@@ -18,7 +22,8 @@ package com.igz.curri2.ui
 		private var _Category:LabelUi;
 		private var _SubCategory:LabelUi;
 		private var _DetailsLabel:LabelUi;
-		private var _DetailsText:TextUi;
+		private var _DetailsText:LabelUi;
+		private var _ScrollDetails:ScrollContainerUi;
 		private var _WebLink:LinkUi;
 		private var _Bg:Sprite;
 		public static var $SheetWidth:Number=300;
@@ -29,27 +34,28 @@ package com.igz.curri2.ui
 		{
 			mydto = p_proyectDTO;
 			_Bg = new Sprite();
-			_Bg.graphics.lineStyle(3, 0xCACACA);
-			_Bg.graphics.beginFill(0xACACAC);
+			_Bg.graphics.lineStyle(3, Frwk.$Current.$ThemeManager.$GetStyleColor("line_bg_proyect_sheet"));
+			_Bg.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetStyleColor("bg_proyect_sheet"));
 			_SheetHeight = 300;
 			_Bg.graphics.drawRoundRect(0, 0, $SheetWidth, _SheetHeight,50);
 			addChild(_Bg);
 			_Title = new LabelUi(p_proyectDTO.Name, "CenterH1");
-			_Company = new LabelUi(p_proyectDTO.Company, "CenterH2");
-			_Category = new LabelUi(p_proyectDTO.Category, "CenterH3");
-			_SubCategory = new LabelUi(p_proyectDTO.SubCategory, "CenterH3");
-			_DetailsLabel = new LabelUi("Detalles", "CenterH3");
-			_DetailsText = new TextUi(p_proyectDTO.Description, "Content");
-			
+			_Company = new LabelUi("at "+p_proyectDTO.Company, "CenterH2");
+			_Category = new LabelUi(p_proyectDTO.SubCategory+" in "+p_proyectDTO.Category+" category ", "CenterH3");
+			//_SubCategory = new LabelUi(p_proyectDTO.SubCategory, "CenterH3");
+			_DetailsLabel = new LabelUi("Details", "CenterH3_u");
+			_ScrollDetails = new ScrollContainerUi( { "width":  200, "height": 100, "borderAlpha" : 0, "backgroundAlpha": 0} );
+			_DetailsText = new LabelUi(p_proyectDTO.Description, "Content", { maxLines: 20, fixWidth: 200 } );
+			_ScrollDetails.addChild(_DetailsText);
+	//		_DetailsText.scrollRect = new Rectangle(0, 0, 100, 100);
+	trace("--->["+p_proyectDTO.Url+"]")
 			_WebLink = new LinkUi(new LabelUi(p_proyectDTO.Url, "CenterH3"), { "onClick":$GoToUrl } );
-			_DetailsText.width = 200;
-			_DetailsText.height = 200;
 			addChild(_Title);
 			addChild(_Company);
 			addChild(_Category);
-			addChild(_SubCategory);
+		//	addChild(_SubCategory);
 			addChild(_DetailsLabel);
-			addChild(_DetailsText);
+			addChild(_ScrollDetails);
 			addChild(_WebLink);
 			$Recolocate();
 		}
@@ -63,20 +69,21 @@ package com.igz.curri2.ui
 		
 		public function $Recolocate():void
 		{
-		_Title.x = 20;	
-		_Title.y = 30;
-		_Company.x = 30;
-		_Company.y = 55;
-		_Category.x = 35;
-		_Category.y = 75;
-		_SubCategory.x = 155;
-		_SubCategory.y = 75;		
-		_DetailsLabel.x = 35;
-		_DetailsLabel.y = 100;
-		_DetailsText.x = 35;
-		_DetailsText.y = 125;
-		_WebLink.x = _DetailsText.x;
-		_WebLink.y = _DetailsText.y + _DetailsText.height+5;
+		_Title.x = 15;	
+		_Title.y = 15;
+		_Company.x = _Title.x;
+		_Company.y = _Title.y+_Title.height+3;
+		_Category.x = _Title.x;
+		_Category.y =_Company.y+_Company.height+5;
+	//	_SubCategory.x = 155;
+	//	_SubCategory.y = 75;		
+		_DetailsLabel.x = _Title.x;
+		_DetailsLabel.y = _Category.y+_Category.height+5;
+		_ScrollDetails.x = _Title.x;
+		_ScrollDetails.y =  _DetailsLabel.y+_DetailsLabel.height+3;
+//		trace("poniendo las cosas en su sitio ["+_DetailsText.height+"]");
+		_WebLink.x = _ScrollDetails.x;
+		_WebLink.y = _ScrollDetails.y + _ScrollDetails.height+5;
 		
 		}
 		
