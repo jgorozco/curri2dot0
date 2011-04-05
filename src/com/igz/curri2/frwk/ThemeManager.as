@@ -55,6 +55,14 @@ package com.igz.curri2.frwk
 			{
 				return 0XAA0000;
 			}		
+			if (p_element == "line_bg_proyect_sheet")
+			{
+				return 0XCACACA;
+			}		
+			if (p_element == "bg_proyect_sheet")
+			{
+				return 0XCCCCCC;
+			}					
 			
 			return 0x00ff00;
 

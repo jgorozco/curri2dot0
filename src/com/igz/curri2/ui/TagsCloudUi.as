@@ -27,7 +27,7 @@ package com.igz.curri2.ui
 		private var _CurrentTag:String;
 		private var _OnClickFunction:Function;
 		private var _Media:Number;
-		
+		private var _OriginalSize:Point;
 		public function $GetCurrentTag():String
 		{
 		return _CurrentTag;	
@@ -43,7 +43,8 @@ package com.igz.curri2.ui
 						, "height" : 180
 						, "OnClickFunction" : null
 				        }
-			ObjectUtil.$Merge( p_settings, _Settings );		
+			ObjectUtil.$Merge( p_settings, _Settings );	
+			_OriginalSize = new Point(_Settings["width"], _Settings["height"]);
 			_Media = (_Settings["width"] + _Settings["width"])/16;
 			_OnClickFunction=p_settings["OnClickFunction"];
 			_Bg = new Sprite();
@@ -165,13 +166,13 @@ package com.igz.curri2.ui
 			{
 				p_elem.y = 0;
 			}
-			if ((p_elem.width+p_elem.x)>p_container.width)
+			if ((p_elem.width+p_elem.x)>_OriginalSize.x)
 			{
-				p_elem.x = p_container.width-p_elem.width;
+				p_elem.x = _OriginalSize.x-p_elem.width;
 			}
-			if (p_container.height<(p_elem.height+p_elem.y))
+			if (_OriginalSize.y<(p_elem.height+p_elem.y))
 			{
-				p_elem.y = p_container.height-p_elem.height;
+				p_elem.y = _OriginalSize.y-p_elem.height;
 			}
 		}
 		
