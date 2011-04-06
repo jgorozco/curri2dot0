@@ -45,8 +45,8 @@ package com.igz.curri2.ui
 			var offsety:Number = 0;		
 			if (CurrentCategorie.$IsPrincipal())
 			{//quitamos el tamaño del boton
-			//	offsetx =CurrentCategorie.$BtnMedidas.x;
-			//	offsety = CurrentCategorie.$BtnMedidas.y;
+				offsetx =CurrentCategorie.$BtnMedidas.x;
+				offsety = CurrentCategorie.$BtnMedidas.y;
 			}
 			var posinx:Number = CurrentCategorie.x + CurrentCategorie.width-offsetx;		
 			var posiny:Number =CurrentCategorie.y + ((CurrentCategorie.height - Timeline.height-offsety) / 2);
@@ -74,7 +74,7 @@ package com.igz.curri2.ui
 		public function $ShowCategorie():void
 		{		
 			CurrentCategorie = Categorie;
-			TweenLite.to(Categorie, 0.5, { x:0 ,"onComplete":$SetAndFixCategory} )	;
+			TweenLite.to(Categorie, 0.5, { x:-15 ,"onComplete":$SetAndFixCategory} )	;
 			TweenLite.to(SubCategorie, 0.5, { x: -SubCategorie.width } )	;
 			
 		}
@@ -83,7 +83,7 @@ package com.igz.curri2.ui
 		{
 			TweenLite.to(Categorie, 0.5, { x:40-Categorie.width} );
 			CurrentCategorie = SubCategorie;
-			TweenLite.to(SubCategorie, 0.5, { x:10,"onComplete":$SetAndFixCategory} )	;
+			TweenLite.to(SubCategorie, 0.5, { x:40,"onComplete":$SetAndFixCategory} )	;
 		}		
 		
 		

@@ -148,7 +148,7 @@ package com.igz.curri2.ui
 			graphics.beginFill(_Settings["color"] as Number);
 			trace("_________tellme the widht! [" + $CatContainer.width + "] and max? [" + maxW + "]");
 			graphics.lineStyle(4, Frwk.$Current.$ThemeManager.$GetStyleColor("line_content_1"), 1);
-			graphics.drawRoundRect(0, 0, maxW, _Settings["height"], 40);
+			graphics.drawRoundRect(0, 0,maxW, _Settings["height"], 40);
 		//	$CatContainer.x = 50;
 			graphics.endFill();
 		}
