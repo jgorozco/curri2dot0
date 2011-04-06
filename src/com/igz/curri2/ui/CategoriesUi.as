@@ -23,13 +23,13 @@ package com.igz.curri2.ui
 		private var _Parent:ComboCategoriesUI;
 		private var _BackButton:LinkUi;
 		private var _SubCategories:CategoriesUi;
-		
+		public var $CatContainer:Sprite;
 		public var $IsHidden:Boolean;
 		
 		private var _Settings:Object={ "width" : 80
 									, "height" : 300
-									, "btnWith":30
-									, "btnHeight":30
+									, "btnWith":20
+									, "btnHeight":20
 									};
 		public var $BtnMedidas:Point;							
 							
@@ -43,7 +43,8 @@ package com.igz.curri2.ui
 			ObjectUtil.$Merge( p_settings, _Settings );
 			_Parent = (p_settings["parent"] as ComboCategoriesUI);
 			_principal = (p_settings["principal"]as Boolean);
-			
+			$CatContainer = new Sprite();
+			$CatContainer.name = "$CatContainer";
 			var color:Number = (_Settings["color"] as Number);
 			trace("IS PRINCIPAL?" + _principal);
 			if (_principal == true)
@@ -57,7 +58,7 @@ package com.igz.curri2.ui
 			graphics.beginFill(color);
 			graphics.drawRoundRect(0, 0, _Settings["width"], _Settings["height"],40);
 			graphics.endFill();
-
+			addChild($CatContainer);
 			if (_principal)
 			{
 				var linked:Sprite = new Sprite();
@@ -74,7 +75,7 @@ package com.igz.curri2.ui
 		
 		public function $GetCategories():Array
 		{
-		return _CategoriesData;	
+			return _CategoriesData;	
 		}
 		
 		public function $IsPrincipal(): Boolean
@@ -87,7 +88,7 @@ package com.igz.curri2.ui
 		{
 			if (!_principal)
 			{
-				SpriteUtil.$RemoveChildsOf(this);
+				SpriteUtil.$RemoveChildsOf($CatContainer);
 			}
 			_Categories = new Array();
 			_CategoriesData = new Array();			
@@ -99,8 +100,7 @@ package com.igz.curri2.ui
 			var linkUi:LinkUi = new LinkUi(new LabelUi(p_categore.$Name, "default5"), { "onClick":_OnClickSelectCategorie } );
 			linkUi.name = p_categore.$Name;
 			_Categories.push(linkUi);
-			addChild(linkUi);
-			trace("colocamos las etiquetas");
+			$CatContainer.addChild(linkUi);
 			_ColocarEtiquetas();
 		}
 		
@@ -115,7 +115,7 @@ package com.igz.curri2.ui
 			{
 				positioned = _Settings["height"];
 				(_Categories[0] as LinkUi).y = (_Settings["height"] - (_Categories[0] as LinkUi).height) / 2;
-				(_Categories[0] as LinkUi).x = this.width - (_Categories[0] as LinkUi).width+5;
+				(_Categories[0] as LinkUi).x = $CatContainer.width - (_Categories[0] as LinkUi).width+5;
 				maxW=(_Categories[0] as LinkUi).width;
 			}else
 			{
@@ -126,17 +126,14 @@ package com.igz.curri2.ui
 				}
 				positioned = _Settings["height"] / etiqs;
 				maxW =  (_Categories[0] as LinkUi).width + 60;
-				trace("__escribiendo ["+maxW+"]");
 				for (var i:Number = 0; i < etiqs; i++)
 				{
 					(_Categories[i] as LinkUi).y = ( positioned * (i+0.4)) - ((_Categories[i] as LinkUi).height) / 2;
-					(_Categories[i] as LinkUi).x = this.width - (_Categories[i] as LinkUi).width;
+					(_Categories[i] as LinkUi).x = $CatContainer.width - (_Categories[i] as LinkUi).width-9;
 					if ((_Categories[i] as LinkUi).width > maxW)
 					{
 						maxW = ( _Categories[i] as LinkUi).width;
-						
 					}
-					trace("escribiendo ["+maxW+"]");
 				}
 			}
 			maxW = maxW ;
@@ -145,10 +142,14 @@ package com.igz.curri2.ui
 //			graphics.drawRect(0, 0, width, _Settings["height"]);
 			if (_principal)
 			{
-				_BackButton.x = width-_Settings["btnWith"]/2;
+				_BackButton.x =maxW-_BackButton.width+5;
 			}
+			graphics.clear();
 			graphics.beginFill(_Settings["color"] as Number);
-			graphics.drawRoundRect(0, 0, maxW+5, _Settings["height"], 40);
+			trace("_________tellme the widht! [" + $CatContainer.width + "] and max? [" + maxW + "]");
+			graphics.lineStyle(4, Frwk.$Current.$ThemeManager.$GetStyleColor("line_content_1"), 1);
+			graphics.drawRoundRect(0, 0, maxW, _Settings["height"], 40);
+		//	$CatContainer.x = 50;
 			graphics.endFill();
 		}
 		
