@@ -18,8 +18,6 @@ package com.igz.curri2.ui
 		
 		public function ComboCategoriesUI() 
 		{
-
-			
 			var setting:Object = new Object();
 			setting["parent"] = this;
 			setting["principal"] = true;
@@ -47,8 +45,8 @@ package com.igz.curri2.ui
 			var offsety:Number = 0;		
 			if (CurrentCategorie.$IsPrincipal())
 			{//quitamos el tamaño del boton
-				offsetx =CurrentCategorie.$BtnMedidas.x;
-				offsety = CurrentCategorie.$BtnMedidas.y;
+			//	offsetx =CurrentCategorie.$BtnMedidas.x;
+			//	offsety = CurrentCategorie.$BtnMedidas.y;
 			}
 			var posinx:Number = CurrentCategorie.x + CurrentCategorie.width-offsetx;		
 			var posiny:Number =CurrentCategorie.y + ((CurrentCategorie.height - Timeline.height-offsety) / 2);
@@ -74,8 +72,7 @@ package com.igz.curri2.ui
 		}
 		
 		public function $ShowCategorie():void
-		{
-trace("Se llama a $ShowCategorie");			
+		{		
 			CurrentCategorie = Categorie;
 			TweenLite.to(Categorie, 0.5, { x:0 ,"onComplete":$SetAndFixCategory} )	;
 			TweenLite.to(SubCategorie, 0.5, { x: -SubCategorie.width } )	;

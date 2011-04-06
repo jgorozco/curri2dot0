@@ -3,10 +3,12 @@ package com.igz.curri2.ui
 	import com.igz.curri2.Frwk;
 	import com.igz.curri2.frwk.ProyectDto;
 	import flash.display.Sprite;
+	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
 	import flash.text.TextFieldAutoSize;
 	import igz.fleaxy.ui.LinkUi;
+	import igz.fleaxy.ui.scrollbar.ScrollBarContainerUi;
 	import igz.fleaxy.ui.scrollbar.ScrollContainerUi;
 	import igz.fleaxy.ui.text.LabelUi;
 	import igz.fleaxy.ui.text.TextUi;
@@ -23,7 +25,7 @@ package com.igz.curri2.ui
 		private var _SubCategory:LabelUi;
 		private var _DetailsLabel:LabelUi;
 		private var _DetailsText:LabelUi;
-		private var _ScrollDetails:ScrollContainerUi;
+		private var _ScrollDetails:ScrollBarContainerUi;
 		private var _WebLink:LinkUi;
 		private var _Bg:Sprite;
 		public static var $SheetWidth:Number=300;
@@ -40,16 +42,21 @@ package com.igz.curri2.ui
 			_Bg.graphics.drawRoundRect(0, 0, $SheetWidth, _SheetHeight,50);
 			addChild(_Bg);
 			_Title = new LabelUi(p_proyectDTO.Name, "CenterH1");
-			_Company = new LabelUi("at "+p_proyectDTO.Company, "CenterH2");
+			
+			_Company = new LabelUi("at " + p_proyectDTO.Company, "CenterH2");
+			if (p_proyectDTO.Company == "")
+			{
+				_Company.visible = false;
+			}
 			_Category = new LabelUi(p_proyectDTO.SubCategory+" in "+p_proyectDTO.Category+" category ", "CenterH3");
 			//_SubCategory = new LabelUi(p_proyectDTO.SubCategory, "CenterH3");
 			_DetailsLabel = new LabelUi("Details", "CenterH3_u");
-			_ScrollDetails = new ScrollContainerUi( { "width":  200, "height": 100, "borderAlpha" : 0, "backgroundAlpha": 0} );
+			_ScrollDetails = new ScrollBarContainerUi( { "width":  $SheetWidth - 50, "height": 100, "borderAlpha" : 0, "backgroundAlpha": 0 } );
+			_ScrollDetails.$ScrollBarH.visible = false;
 			_DetailsText = new LabelUi(p_proyectDTO.Description, "Content", { maxLines: 20, fixWidth: 200 } );
 			_ScrollDetails.addChild(_DetailsText);
-	//		_DetailsText.scrollRect = new Rectangle(0, 0, 100, 100);
-	trace("--->["+p_proyectDTO.Url+"]")
-			_WebLink = new LinkUi(new LabelUi(p_proyectDTO.Url, "CenterH3"), { "onClick":$GoToUrl } );
+		trace("--->["+p_proyectDTO.Url+"]")
+			_WebLink = new LinkUi(new LabelUi(p_proyectDTO.Url, "CenterH3",{"fixWidth" : $SheetWidth-30}), { "onClick":$GoToUrl } );
 			addChild(_Title);
 			addChild(_Company);
 			addChild(_Category);
@@ -60,10 +67,11 @@ package com.igz.curri2.ui
 			$Recolocate();
 		}
 		
-		public function $GoToUrl():void
+		public function $GoToUrl(m:MouseEvent):void
 		{
 			var url:URLRequest = new URLRequest(mydto.Url);
-			navigateToURL(url);
+			
+			navigateToURL(url,"_blank");
 			
 		}
 		

@@ -17,15 +17,15 @@ package com.igz.curri2.frwk
 			var color:Number;
 			if (p_element == "line_scuare_1")
 			{
-			return 0xACACAC;	
+				return 0x959595;	
 			}
 			if (p_element == "line_content_1")
 			{
-				return 0xACACAC;
+				return 0xBBBBBB;
 			}
 			if (p_element == "line_scuare_2")
 			{
-				return 0x666666;	
+				return 0xACACAC;	
 			}
 			if (p_element == "line_content_2")
 			{

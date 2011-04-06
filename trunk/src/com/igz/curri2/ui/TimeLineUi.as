@@ -263,7 +263,7 @@ package com.igz.curri2.ui
 			SpriteUtil.$RemoveChildsOf(_LIneContainter);
 			for (var i:Number = 0; i < _ListCategories.length; i++)
 			{
-			var d:DisplayObject=_CategorieList.getChildByName(_ListCategories[i]);
+			var d:DisplayObject=_CategorieList.$CatContainer.getChildByName(_ListCategories[i]);
 			//trace("posic [" + _ListCategories[i] + "] x[" + d.x + "]  y[" + d.y + "]");
 			var s:Sprite = new Sprite();
 		//	s.graphics.beginFill(0x000000,0.01);
@@ -275,7 +275,7 @@ package com.igz.curri2.ui
 		  s.graphics.lineStyle(3,colorLine, 4, true);
 			while (mustRepeat&&(isSecond<=1))
 			{
-				
+		//		trace("d["+d+"]");
 				mustRepeat = false;
 				s.graphics.moveTo(0, d.y + OFFSET);
 				var ori_x:Number = 0;
