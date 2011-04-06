@@ -143,7 +143,7 @@ var Fleaxy = new function () {
 				}
 				catch(p_ex){}
 			}
-			swfobject.embedSWF( "./swf/"+p_idSwf+".swf", _GetContainer(p_idSwf), attributes.width, attributes.height, "10.0.0", "swf/expressInstall.swf"
+			swfobject.embedSWF( "./"+p_idSwf+".swf", _GetContainer(p_idSwf), attributes.width, attributes.height, "10.0.0", "swf/expressInstall.swf"
 							  , flashvars
 							  , params
 							  , attributes
