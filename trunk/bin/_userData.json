@@ -1,0 +1,62 @@
+{
+    "Data": {
+        "UserData": {
+            "Name": "Jose García Orozco",
+            "Phone": "668874687",
+            "Address": "c/Arroyo olivar 18",
+            "University": "Universidad politecnica de madrid",
+            "DriveLicense": "B",
+            "Poblation": "Madrid",
+            "Nationality": "Española",
+            "Mail": "josegoupm@gmail.com",
+            "Photo": "http://lh3.ggpht.com/_z5BKP2TY3eg/SxgvhRZZ7fI/AAAAAAAAA7M/zJtBElLd34w/orla.jpg",
+			"initialDate": "01/06/2007"
+        },
+        "Proyects": [
+            {
+                "Name": "CRUE",
+                "Category": "Web Service",
+                "SubCategory": "Java",
+                "InitDate": "01/06/2007",
+                "EndDate": "01/09/2008",
+                "Description": "CRUE CRUE CRUE CRUE CRUEs CRU CRUE CRUE CRUE CRUEs CRUE CRUE CRUE CRUE CRUEs CRUE CRUE CRUE CRUE CRUEs",
+                "Company": "Universidad Polit",
+				"Profesional":"true",
+                "Url": "www.google.es"  
+            },
+            {
+                "Name": "CRUE1",
+                "Category": "Web Service",
+                "SubCategory": "Java2",
+                "InitDate": "01/09/2008",
+                "EndDate": "01/12/2009",
+                "Description": "CRUE CRUE CRUE CRUE CRUEs1",
+                "Company": "Universidad Polit",
+				"Profesional":"true",
+                "Url": "www.google.es"  
+            },
+            {
+                "Name": "CRUE2",
+                "Category": "Web Service",
+                "SubCategory": "Java3",
+                "InitDate": "01/09/2009",
+                "EndDate": "01/03/2010",
+                "Description": "CRUE CRUE CRUE CRUE CRUEs2",
+                "Company": "Universidad Polit2",
+				"Profesional":"false",
+                "Url": "www.google.es" 
+            },
+            {
+                "Name": "CRUE3",
+                "Category": "Web Service",
+                "SubCategory": "Java,struts",
+                "InitDate": "01/03/2010",
+                "EndDate": "",
+                "Description": "CRUE CRUE CRUE CRUE CRUEs2",
+                "Company": "Universidad Polit2",
+				"Profesional":"false",
+                "Url": "www.google.es" 
+            }			
+        ] 
+    }
+} 
