@@ -63,7 +63,14 @@ package com.igz.curri2.frwk
 			{
 				return 0XCCCCCC;
 			}					
-			
+			if (p_element == "soft_sep")
+			{
+				return 0x85A5CC;
+			}	
+			if (p_element == "hard_sep")
+			{
+				return 0xD0E4F2;
+			}						
 			return 0x00ff00;
 
 			}

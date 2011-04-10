@@ -6,6 +6,7 @@ package com.igz.curri2.ui
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
+	import flash.filters.GlowFilter;
 	import flash.geom.Rectangle;
 	import igz.fleaxy.Fleaxy;
 	import igz.fleaxy.ui.LinkUi;
@@ -94,12 +95,14 @@ package com.igz.curri2.ui
 			addChild(_DateInit);
 			addChild(_DateFinish);
 			var clicked:Sprite = new Sprite();
-			clicked.graphics.beginFill(0x0000ff);
-			clicked.graphics.drawRect(0, 0, 10, 40);
+			clicked.graphics.beginFill(0x363D52);
+			clicked.graphics.drawRoundRect(0, 0, 10, 54,10,10);
 			clicked.graphics.endFill();
 			_Selector = new LinkUi(clicked, { "onMouseDown" : _OnSelectorMouseDown
 											, "onMouseUp"   : _OnSelectorMouseUp 
 											, "onMouseMove"   : _OnSelectorMouseMove
+											,"onMouseOver":_OnMouseOver
+											,"onMouseOut":_OnMouseOut 
 											} 
 								  );
 			_selectorActualPercent = 0;
@@ -115,6 +118,25 @@ package com.igz.curri2.ui
 
 		}
 
+private function _OnMouseOver(e:MouseEvent):void
+		{
+
+			var myGlow:GlowFilter = new GlowFilter(); 
+			myGlow.inner=true; 
+			myGlow.color = 0xaaaaaa; 
+			myGlow.blurX = 10; 
+			myGlow.blurY = 10; 
+			myGlow.alpha = 0.6;
+			_Selector.filters = [myGlow];
+		}
+
+		
+		private function _OnMouseOut(e:MouseEvent):void
+		{
+			_Selector.filters = [];
+		}		
+		
+		
 		private function _OnSelectorMouseMove(p_event:MouseEvent):void
 		{
 			if (p_event.buttonDown)
@@ -228,11 +250,12 @@ package com.igz.curri2.ui
 					scuareElement = new Sprite();
 					if (i % 2 == 1)
 					{
-						scuareElement.graphics.beginFill(0x85A5CC,0.15);
+						
+						scuareElement.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetStyleColor("soft_sep"),0.15);
 					}
 					else
 					{
-						scuareElement.graphics.beginFill(0xD0E4F2,0.15);
+						scuareElement.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetStyleColor("hard_sep"),0.15);
 					}
 					scuareElement.graphics.drawRect(i * element_widht, 0, element_widht, _MonthContainer.height);
 					scuareElement.graphics.endFill();
