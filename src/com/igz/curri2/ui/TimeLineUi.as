@@ -43,6 +43,7 @@ package com.igz.curri2.ui
 		private var _MapLines:Object;
 		private var _ListCategories:Array;	
 		private var _LIneContainter:Sprite;
+		private var _MonthContainer:Sprite;
 		private var _MesesTot:Number;
 		private var _PersonalLabel:LabelUi;
 		private var _ProfesionalLabel:LabelUi;		
@@ -57,6 +58,11 @@ package com.igz.curri2.ui
 			$Bg.graphics.drawRoundRect(0, 0, MAXHEIGHT, p_categorie.height,60,200);
 			$Bg.graphics.endFill();
 			addChild($Bg);
+			_MonthContainer = new Sprite();
+			_MonthContainer.graphics.beginFill(0x000000, 0.0);
+			_MonthContainer.graphics.drawRoundRect(0, 0, $Bg.width, $Bg.height,60,200);
+			_MonthContainer.graphics.endFill();
+			$Bg.addChild(_MonthContainer);
 			_LIneContainter = new Sprite();
 			_LIneContainter.graphics.beginFill( Frwk.$Current.$ThemeManager.$GetStyleColor("bg_timeline"),0.0);
 			_LIneContainter.graphics.drawRoundRect(0, 0, $Bg.width, $Bg.height, 60, 200);
@@ -212,8 +218,26 @@ package com.igz.curri2.ui
 			//mesesTot = (_EndDate.getTime() - _InitialDate.getTime()) / 2592000000;
 			_MesesTot = (_EndDate.getFullYear() * 12 + _EndDate.getMonth()) - (_InitialDate.getFullYear() * 12 + _InitialDate.getMonth());
 			//trace("numero de meses:" + _MesesTot);
+			var element_widht:Number = Math.round(_MonthContainer.width / _MesesTot);
+			var scuareElement:Sprite;
+			SpriteUtil.$RemoveChildsOf(_MonthContainer);
 			for (var i:int = 0; i <_MesesTot; i++)
 				{
+				if ((i > 1) && (i < _MesesTot - 2))
+				{
+					scuareElement = new Sprite();
+					if (i % 2 == 1)
+					{
+						scuareElement.graphics.beginFill(0x85A5CC,0.15);
+					}
+					else
+					{
+						scuareElement.graphics.beginFill(0xD0E4F2,0.15);
+					}
+					scuareElement.graphics.drawRect(i * element_widht, 0, element_widht, _MonthContainer.height);
+					scuareElement.graphics.endFill();
+					_MonthContainer.addChild(scuareElement);
+				}
 				arr.push(0);
 				}
 			return arr;
