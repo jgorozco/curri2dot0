@@ -6,6 +6,8 @@ package com.igz.curri2.ui
 	import com.igz.curri2.frwk.CategoryDto;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
+	import flash.filters.DropShadowFilter;
+	import flash.filters.GlowFilter;
 	import flash.geom.Point;
 	import igz.fleaxy.ui.LinkUi;
 	import igz.fleaxy.ui.text.LabelUi;
@@ -65,7 +67,22 @@ package com.igz.curri2.ui
 				linked.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetStyleColor("close_button"));
 				linked.graphics.drawRoundRect(0, 0, _Settings["btnWith"], _Settings["btnHeight"],_Settings["btnWith"]);
 				linked.graphics.endFill();
-				_BackButton = new LinkUi(linked, { "onClick":_OnClickReturn } );
+				var cross:Sprite = new Sprite();
+				cross.graphics.beginFill(0xffffff);
+				cross.graphics.lineStyle(2, 0xffffff, 1, true);
+				var tamanio:Number = 5;
+				cross.graphics.moveTo(linked.width / 2, linked.height / 2);
+				cross.graphics.lineTo((linked.width / 2) - tamanio, (linked.height / 2) - tamanio);
+				cross.graphics.moveTo(linked.width / 2, linked.height / 2);
+				cross.graphics.lineTo((linked.width / 2) -tamanio, (linked.height / 2) + tamanio);
+				cross.graphics.moveTo(linked.width / 2, linked.height / 2);
+				cross.graphics.lineTo((linked.width / 2) + tamanio, (linked.height / 2) + tamanio);
+				cross.graphics.moveTo(linked.width / 2, linked.height / 2);
+				cross.graphics.lineTo((linked.width / 2) + tamanio, (linked.height / 2) -tamanio);
+				linked.addChild(cross);
+				_BackButton = new LinkUi(linked, { "onClick":_OnClickReturn 
+													,"onMouseOver":_OnMouseOver_btn
+													,"onMouseOut":_OnMouseOut_btn  } );
 				addChild(_BackButton);
 				_BackButton.x =this.width-_Settings["btnWith"]/2;
 				_BackButton.y = -_BackButton.height/2;
@@ -97,12 +114,53 @@ package com.igz.curri2.ui
 		public function $AddCategorie(p_categore:CategoryDto):void
 		{
 			_CategoriesData.push(p_categore);
-			var linkUi:LinkUi = new LinkUi(new LabelUi(p_categore.$Name, "default5"), { "onClick":_OnClickSelectCategorie } );
+			var linkUi:LinkUi = new LinkUi(new LabelUi(p_categore.$Name, "default5"), { "onClick":_OnClickSelectCategorie
+																						,"onMouseOver":_OnMouseOver
+																						,"onMouseOut":_OnMouseOut  } );
 			linkUi.name = p_categore.$Name;
 			_Categories.push(linkUi);
 			$CatContainer.addChild(linkUi);
 			_ColocarEtiquetas();
 		}
+		
+		private function _OnMouseOver_btn(e:MouseEvent):void
+		{
+
+			var myGlow:GlowFilter = new GlowFilter(); 
+			myGlow.inner=true; 
+			myGlow.color = 0xffffff; 
+			myGlow.blurX = 10; 
+			myGlow.blurY = 10; 
+			myGlow.alpha = 0.6;
+			e.currentTarget.filters = [myGlow];
+		}
+
+		
+		private function _OnMouseOut_btn(e:MouseEvent):void
+		{
+			e.currentTarget.filters = [];
+		}			
+		
+		
+		
+		private function _OnMouseOver(e:MouseEvent):void
+		{
+
+			var f:DropShadowFilter = new DropShadowFilter();
+			f.distance = 2;
+			f.color = 0xffffff;
+			f.blurX = 13;
+			f.blurY = 13;
+			f.quality = 3;
+			e.currentTarget.filters = [f];
+		}
+
+		
+		private function _OnMouseOut(e:MouseEvent):void
+		{
+			e.currentTarget.filters = [];
+		}			
+		
 		
 		private function _ColocarEtiquetas():void
 		{

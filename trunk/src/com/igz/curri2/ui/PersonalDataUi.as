@@ -1,5 +1,6 @@
 package com.igz.curri2.ui 
 {
+	import com.greensock.data.DropShadowFilterVars;
 	import com.greensock.TweenLite;
 	import com.igz.curri2.Frwk;
 	import com.igz.curri2.frwk.PersonalDataDto;
@@ -8,6 +9,9 @@ package com.igz.curri2.ui
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.filters.ColorMatrixFilter;
+	import flash.filters.DropShadowFilter;
+	import flash.filters.GlowFilter;
 	import flash.net.URLRequest;
 	import igz.fleaxy.events.CommEvent;
 	import igz.fleaxy.net.Comm;
@@ -66,7 +70,7 @@ package com.igz.curri2.ui
 			addChild(s);
 			$Showed = false;
 			var personalData:LabelUi = new LabelUi("Mostrar Datos Personales", "CenterH1");
-			_LabelShowPersonal = new LinkUi(personalData, { "onClick":_OnClickShow } );
+			_LabelShowPersonal = new LinkUi(personalData, { "onClick":_OnClickShow,"onMouseOver":_OnMouseOver, "onMouseOut":_OnMouseOut } );
 			addChild(_LabelShowPersonal);
 			_LabelShowPersonal.x = (this.width-_LabelShowPersonal.width) / 2;
 			_LabelShowPersonal.y = 305;
@@ -230,6 +234,25 @@ package com.igz.curri2.ui
 */					
 		}
 		
+		
+		private function _OnMouseOver(e:MouseEvent):void
+		{
+			var f:DropShadowFilter = new DropShadowFilter();
+			f.distance = 2;
+			f.color = 0xffffff;
+			f.blurX = 13;
+			f.blurY = 13;
+			f.quality = 3;
+			
+			
+			e.currentTarget.filters = [f];
+		}
+
+		
+		private function _OnMouseOut(e:MouseEvent):void
+		{
+			e.currentTarget.filters = [];
+		}		
 		
 		private function _OnClickShow(e:MouseEvent):void 
 		{
