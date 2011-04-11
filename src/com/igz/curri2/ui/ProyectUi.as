@@ -1,6 +1,7 @@
 package com.igz.curri2.ui 
 {
 	import com.greensock.TweenLite;
+	import com.igz.curri2.Frwk;
 	import com.igz.curri2.frwk.ProyectDto;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
@@ -27,7 +28,7 @@ package com.igz.curri2.ui
 			$HeaderHeight = 40;
 			$CompleterHeight = 300;
 			var s:Sprite = new Sprite();
-			s.graphics.beginFill(0XD1D1D1);
+			s.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetColorOfTag("bg_proyectlist"));
 			s.graphics.lineStyle(1, 0X666666, 1, true);
 			s.graphics.moveTo(0, 0);
 			s.graphics.curveTo(Fleaxy.$Current.$Stage.stageWidth / 2, -60 , Fleaxy.$Current.$Stage.stageWidth, 0);
@@ -36,6 +37,16 @@ package com.igz.curri2.ui
 			s.graphics.lineTo(0,0);
 			//s.graphics.drawRect(0, 0, Fleaxy.$Current.$Stage.stageWidth, 300);
 			s.graphics.endFill();
+			
+			var myGlow:GlowFilter = new GlowFilter(); 
+			myGlow.inner=true; 
+			myGlow.color = 0x888888; 
+		//	myGlow.knockout = true;
+		//	myGlow.strength = 200;
+			myGlow.blurX = 13; 
+			myGlow.blurY = 13; 
+			s.filters = [myGlow];
+			
 			addChild(s);
 
 			_Content = null;

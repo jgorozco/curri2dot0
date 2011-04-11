@@ -2,7 +2,7 @@
 	import com.igz.curri2.frwk.CategoryDto;
 	import com.igz.curri2.frwk.PersonalDataDto;
 	import com.igz.curri2.frwk.ProyectDto;
-	import com.igz.curri2.frwk.ThemeManager;
+	import com.igz.curri2.frwk.ColorManager;
 	import com.igz.curri2.ui.CategoriesUi;
 	import igz.fleaxy.Fleaxy;
 	import igz.fleaxy.net.Comm;
@@ -20,7 +20,8 @@
 		public var $ArrayProyects:Array;
 		public var $ShowedProyects:Array;
 		public var $Categories:Array;
-		public var $ThemeManager:ThemeManager;
+		public var $ThemeManager:ColorManager;
+		public var $TagColorManager:ColorManager;
 		private var _onCompleteLoad:Function;
 		
 		static protected var _Current:Frwk;
@@ -36,8 +37,9 @@
 
 		public function $Init(p_complete:Function ) : void {
 			_onCompleteLoad = p_complete;
-			$ThemeManager = new ThemeManager();
-			Comm.$Get("userData.json", { onComplete:_OnCompleteLoad } );
+			
+			Comm.$Get("theme.json", { onComplete:_OnCompleteLoadTheme } );
+			
 		}
 		
 		public function $AddSon(p_category:CategoryDto):int
@@ -81,7 +83,17 @@
 			return arrOut;
 		}
 		
-		private function _OnCompleteLoad(p_event:CommEvent):void
+		
+		private function _OnCompleteLoadTheme(p_event:CommEvent):void
+		{
+			if (p_event.$CommResponseType==CommResponseType.$JSON)
+			{
+			$ThemeManager = new ColorManager(p_event.$ResponseJSON);
+			}
+			Comm.$Get("userData.json", { onComplete:_OnCompleteLoadData } );
+		}
+		
+		private function _OnCompleteLoadData(p_event:CommEvent):void
 		{
 			if (p_event.$CommResponseType==CommResponseType.$JSON)
 			{
@@ -89,7 +101,7 @@
 			$PersonalData.$LoadFromJson(p_event.$ResponseJSON.Data.UserData);
 			$ArrayProyects = new Array();
 			$Categories = new Array ();
-			
+			$TagColorManager = new ColorManager(p_event.$ResponseJSON.Data.Tags);
 			var arr:Array = (p_event.$ResponseJSON.Data.Proyects as Array);
 			var aux:ProyectDto;
 			var category:CategoryDto;

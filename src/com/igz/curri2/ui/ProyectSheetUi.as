@@ -36,8 +36,17 @@ package com.igz.curri2.ui
 		{
 			mydto = p_proyectDTO;
 			_Bg = new Sprite();
-			_Bg.graphics.lineStyle(3, Frwk.$Current.$ThemeManager.$GetStyleColor("line_bg_proyect_sheet"));
-			_Bg.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetStyleColor("bg_proyect_sheet"));
+			if (p_proyectDTO.Profesional == false)
+			{
+				_Bg.graphics.lineStyle(3, Frwk.$Current.$ThemeManager.$GetColorOfTag("line_bg_proyect_sheet"));
+				_Bg.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetColorOfTag("bg_proyect_sheet"));	
+			}else
+			{
+				_Bg.graphics.lineStyle(3, Frwk.$Current.$ThemeManager.$GetColorOfTag("line_bg_proyect_sheet_personal"));
+				_Bg.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetColorOfTag("bg_proyect_sheet_personal"));	
+				
+			}
+			
 			_SheetHeight = 300;
 			_Bg.graphics.drawRoundRect(0, 0, $SheetWidth, _SheetHeight,50);
 			addChild(_Bg);

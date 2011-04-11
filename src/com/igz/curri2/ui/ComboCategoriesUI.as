@@ -21,12 +21,12 @@ package com.igz.curri2.ui
 			var setting:Object = new Object();
 			setting["parent"] = this;
 			setting["principal"] = true;
-			setting["color"] = Frwk.$Current.$ThemeManager.$GetStyleColor("line_scuare_2");		
+			setting["color"] = Frwk.$Current.$ThemeManager.$GetColorOfTag("line_scuare_2");		
 			Categorie = new CategoriesUi(setting);
 			var setting2:Object = new Object();
 			setting2["parent"] = this;
 			setting2["principal"] = false;
-			setting2["color"] = Frwk.$Current.$ThemeManager.$GetStyleColor("line_scuare_1");		
+			setting2["color"] = Frwk.$Current.$ThemeManager.$GetColorOfTag("line_scuare_1");		
 			SubCategorie = new CategoriesUi(setting2);	
 			Timeline = new TimeLineUi(Categorie);
 			addChild(Timeline);		

@@ -50,9 +50,9 @@ package com.igz.curri2.ui
 		public function PersonalDataUi() 
 		{
 			var s:Sprite = new Sprite();
-			s.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetStyleColor("bg_personal_data") );
+			s.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetColorOfTag("bg_personal_data") );
 		//	s.graphics.drawRect(0, 0, 700, 370);
-			s.graphics.lineStyle(1,Frwk.$Current.$ThemeManager.$GetStyleColor("bg_personal_line") , 1, true);
+			s.graphics.lineStyle(1,Frwk.$Current.$ThemeManager.$GetColorOfTag("bg_personal_line") , 1, true);
 			s.graphics.moveTo(0, 0);
 			s.graphics.lineTo(700,0);
 			s.graphics.lineTo(700, 280);
@@ -67,6 +67,16 @@ package com.igz.curri2.ui
 			s.graphics.curveTo(0,300,0, 280);
 			s.graphics.lineTo(0,280);
 			s.graphics.endFill();
+			var myGlow:GlowFilter = new GlowFilter(); 
+			myGlow.inner=true; 
+			myGlow.color = 0x888888; 
+		//	myGlow.knockout = true;
+		//	myGlow.strength = 200;
+			myGlow.blurX = 13; 
+			myGlow.blurY = 13; 
+			s.filters = [myGlow];
+			
+			
 			addChild(s);
 			$Showed = false;
 			var personalData:LabelUi = new LabelUi("Mostrar Datos Personales", "CenterH1");

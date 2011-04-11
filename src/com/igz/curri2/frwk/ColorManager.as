@@ -4,18 +4,26 @@ package com.igz.curri2.frwk
 	 * ...
 	 * @author 
 	 */
-	public class ThemeManager
+	public class ColorManager
 	{
-		
-		public function ThemeManager() 
+		private var _Style:Object;
+		public function ColorManager(p_object:Object) 
 		{
+			_Style = p_object;
 			
 		}
 		
-		public function $GetStyleColor(p_element:String):Number
+		public function $GetColorOfTag(p_element:String):Number
 		{
-			var color:Number;
-			if (p_element == "line_scuare_1")
+			var color:Number=0x00ff00;trace("----getting color [" + p_element + "]");
+			var s:String = (_Style[p_element] as String);
+			trace("----getting color [" + p_element + "]=[" + s + "]");
+			if (s != null)
+			{
+				color = Number(s);
+			}
+			return color;
+	/*		if (p_element == "line_scuare_1")
 			{
 				return 0x959595;	
 			}
@@ -72,7 +80,7 @@ package com.igz.curri2.frwk
 				return 0xD0E4F2;
 			}						
 			return 0x00ff00;
-
+*/
 			}
 		
 	}

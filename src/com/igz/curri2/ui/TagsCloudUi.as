@@ -48,12 +48,12 @@ package com.igz.curri2.ui
 			_Media = (_Settings["width"] + _Settings["width"])/16;
 			_OnClickFunction=p_settings["OnClickFunction"];
 			_Bg = new Sprite();
-			_Bg.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetStyleColor("line_scuare_1"),0.2);
+			_Bg.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetColorOfTag("line_scuare_1"),0.2);
 			_Bg.graphics.drawRoundRect(0, 0, _Settings["width"], _Settings["height"],60);
 			_Bg.graphics.endFill();
 			addChild(_Bg);
 			_TagsContainer= new Sprite();
-			_TagsContainer.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetStyleColor("line_scuare_1"),0.2);
+			_TagsContainer.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetColorOfTag("line_scuare_1"),0.2);
 			_TagsContainer.graphics.drawRoundRect(0, 0, _Settings["width"], _Settings["height"],60);
 			_TagsContainer.graphics.endFill();
 			addChild(_TagsContainer);
