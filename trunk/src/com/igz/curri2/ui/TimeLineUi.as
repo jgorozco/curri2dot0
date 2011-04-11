@@ -55,7 +55,7 @@ package com.igz.curri2.ui
 			df.formatString = "MM-YYYY";
 			$Bg = new Sprite();
 			_EndDate = new Date();
-			$Bg.graphics.beginFill( Frwk.$Current.$ThemeManager.$GetStyleColor("bg_timeline"),1);
+			$Bg.graphics.beginFill( Frwk.$Current.$ThemeManager.$GetColorOfTag("bg_timeline"),1);
 			$Bg.graphics.drawRoundRect(0, 0, MAXHEIGHT, p_categorie.height,60,200);
 			$Bg.graphics.endFill();
 			addChild($Bg);
@@ -65,7 +65,7 @@ package com.igz.curri2.ui
 			_MonthContainer.graphics.endFill();
 			$Bg.addChild(_MonthContainer);
 			_LIneContainter = new Sprite();
-			_LIneContainter.graphics.beginFill( Frwk.$Current.$ThemeManager.$GetStyleColor("bg_timeline"),0.0);
+			_LIneContainter.graphics.beginFill( Frwk.$Current.$ThemeManager.$GetColorOfTag("bg_timeline"),0.0);
 			_LIneContainter.graphics.drawRoundRect(0, 0, $Bg.width, $Bg.height, 60, 200);
 			_LIneContainter.graphics.endFill();
 			addChild(_LIneContainter);
@@ -79,7 +79,7 @@ package com.igz.curri2.ui
 			}
 //trace("___________CREATING TIMELINE________");
 			$Timeline = new Sprite();
-			$Timeline.graphics.beginFill( Frwk.$Current.$ThemeManager.$GetStyleColor("line_timeline"),0);
+			$Timeline.graphics.beginFill( Frwk.$Current.$ThemeManager.$GetColorOfTag("line_timeline"),0);
 			$Timeline.graphics.drawRect(0, 0, _MaxHeight * 0.9, 40);
 			$Timeline.graphics.endFill();
 			var _LineOfTimeline:Sprite = new Sprite();
@@ -95,9 +95,20 @@ package com.igz.curri2.ui
 			addChild(_DateInit);
 			addChild(_DateFinish);
 			var clicked:Sprite = new Sprite();
-			clicked.graphics.beginFill(0x363D52);
-			clicked.graphics.drawRoundRect(0, 0, 10, 54,10,10);
+			clicked.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetColorOfTag("cursor_timeline"));
+			clicked.graphics.drawRoundRect(0, -7, 10, 54, 10, 10);
 			clicked.graphics.endFill();
+			clicked.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetColorOfTag("cursor_timeline"));
+			clicked.graphics.drawCircle(5, 20, 17);
+			clicked.graphics.endFill();		
+			clicked.graphics.lineStyle(2, 0xFAFAFA, 1, true);
+			clicked.graphics.moveTo(15, 15);
+			clicked.graphics.lineTo(18, 19);
+			clicked.graphics.lineTo(15, 23);
+			clicked.graphics.moveTo(-5, 15);
+			clicked.graphics.lineTo(-8, 19);
+			clicked.graphics.lineTo(-5, 23);
+			//			clicked.graphics.endFill();				
 			_Selector = new LinkUi(clicked, { "onMouseDown" : _OnSelectorMouseDown
 											, "onMouseUp"   : _OnSelectorMouseUp 
 											, "onMouseMove"   : _OnSelectorMouseMove
@@ -251,11 +262,11 @@ private function _OnMouseOver(e:MouseEvent):void
 					if (i % 2 == 1)
 					{
 						
-						scuareElement.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetStyleColor("soft_sep"),0.15);
+						scuareElement.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetColorOfTag("soft_sep"),0.15);
 					}
 					else
 					{
-						scuareElement.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetStyleColor("hard_sep"),0.15);
+						scuareElement.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetColorOfTag("hard_sep"),0.15);
 					}
 					scuareElement.graphics.drawRect(i * element_widht, 0, element_widht, _MonthContainer.height);
 					scuareElement.graphics.endFill();
@@ -311,10 +322,16 @@ private function _OnMouseOver(e:MouseEvent):void
 			for (var i:Number = 0; i < _ListCategories.length; i++)
 			{
 			var d:DisplayObject=_CategorieList.$CatContainer.getChildByName(_ListCategories[i]);
-			//trace("posic [" + _ListCategories[i] + "] x[" + d.x + "]  y[" + d.y + "]");
+			trace("posic [" + _ListCategories[i] + "] x[" + d.x + "]  y[" + d.y + "]");
 			var s:Sprite = new Sprite();
 		//	s.graphics.beginFill(0x000000,0.01);
-		  var colorLine:Number = 0xFFFFFF * Math.random();
+			//var tagcolor:Number = //Frwk.$Current.$TagColorManager.$GetColorOfTag((_ListCategories[i] as String));
+			var colorLine:Number=Frwk.$Current.$TagColorManager.$GetColorOfTag(_ListCategories[i] ); 
+			if (colorLine == 0)
+			{
+				colorLine = 0xFFFFFF * Math.random();
+			}
+			
 			
 		  //TODO separar los numeros, para después dibujar 2 lineas
 		  var mustRepeat:Boolean = true;

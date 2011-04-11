@@ -64,7 +64,7 @@ package com.igz.curri2.ui
 			if (_principal)
 			{
 				var linked:Sprite = new Sprite();
-				linked.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetStyleColor("close_button"));
+				linked.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetColorOfTag("close_button"));
 				linked.graphics.drawRoundRect(0, 0, _Settings["btnWith"], _Settings["btnHeight"],_Settings["btnWith"]);
 				linked.graphics.endFill();
 				var cross:Sprite = new Sprite();
@@ -205,7 +205,7 @@ package com.igz.curri2.ui
 			graphics.clear();
 			graphics.beginFill(_Settings["color"] as Number);
 			trace("_________tellme the widht! [" + $CatContainer.width + "] and max? [" + maxW + "]");
-			graphics.lineStyle(4, Frwk.$Current.$ThemeManager.$GetStyleColor("line_content_1"), 1);
+			graphics.lineStyle(4, Frwk.$Current.$ThemeManager.$GetColorOfTag("line_content_1"), 1);
 			graphics.drawRoundRect(0, 0,maxW, _Settings["height"], 40);
 		//	$CatContainer.x = 50;
 			graphics.endFill();

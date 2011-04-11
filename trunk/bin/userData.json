@@ -12,6 +12,23 @@
             "Photo": "http://lh3.ggpht.com/_z5BKP2TY3eg/SxgvhRZZ7fI/AAAAAAAAA7M/zJtBElLd34w/orla.jpg",
 			"initialDate": "01/06/2008"
         },
+		
+		"Tags":{
+				"Web Service":"0xFF6633",
+				"strubs":"FF6633",
+				"Desktop App":"0xFFFF33",
+				"QT4":"0xFFFF33",
+				"Linux":"0x66CCFF",
+				"Bash scriping":"0x66CCFF",
+				"Server app":"0x66FF66",
+				"java":"0x66FF66",
+				"Mobile":"0xFF0033",
+				"IOS":"0x6699FF",
+				"Flash lite":"0xFF0033",
+				"Flash":"0xFF0033",
+				"android":"0x33FF33",
+				"directx game":"0x66FF99"
+			},
         "Proyects": [
             {
                 "Name": "CRUE",
