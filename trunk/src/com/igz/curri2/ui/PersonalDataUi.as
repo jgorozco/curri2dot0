@@ -13,11 +13,13 @@ package com.igz.curri2.ui
 	import flash.filters.DropShadowFilter;
 	import flash.filters.GlowFilter;
 	import flash.net.URLRequest;
+	import flash.net.URLRequestMethod;
 	import igz.fleaxy.events.CommEvent;
 	import igz.fleaxy.net.Comm;
 	import igz.fleaxy.net.CommResponseType;
 	import igz.fleaxy.ui.LinkUi;
 	import igz.fleaxy.ui.text.LabelUi;
+	import flash.net.navigateToURL;
 	/**
 	 * ...
 	 * @author ...
@@ -26,7 +28,7 @@ package com.igz.curri2.ui
 	{
 		public var $Showed:Boolean;
 		private var _LabelShowPersonal:LinkUi;
-
+		private var _PersonalDataDto:PersonalDataDto;
 		private var _OthersData:LabelUi;		
 		private var _NameLabel:LabelUi;
 		private var _PhoneLabel:LabelUi;
@@ -44,7 +46,7 @@ package com.igz.curri2.ui
 		private var _DriveLicenseData:LabelUi;
 		private var _PoblationData:LabelUi;
 		private var _NationalityData:LabelUi;
-		private var _MailData:LabelUi;
+		private var _MailData:LinkUi;
 		private var _PhotoData:Sprite;
 
 		public function PersonalDataUi() 
@@ -89,6 +91,7 @@ package com.igz.curri2.ui
 		
 		public function $LoadPersonalData(p_object:PersonalDataDto):void
 		{
+			_PersonalDataDto = p_object;
 			//if (p_object.$Photo.length==0)
 			//{
 				var pictLdr:Loader = new Loader();
@@ -103,7 +106,7 @@ package com.igz.curri2.ui
 			_DriveLicenseData.text = p_object.DriveLicense;
 			_PoblationData.text = p_object.Poblation;
 			_NationalityData.text = p_object.Nationality;
-			_MailData.text = p_object.Mail;
+			(_MailData.getChildAt(0)as LabelUi).text = p_object.Mail;
 		}
 		
 		private function loaded(event:Event):void
@@ -122,7 +125,7 @@ package com.igz.curri2.ui
 			_MailLabel = new LabelUi("e-Mail :", "default3");	
 			
 			_NameData = new LabelUi("noname qwertyuiop qwertgfdsa", "default5");
-			_MailData = new LabelUi("dddddd@fdsfds.wa", "default5");	
+			_MailData = new LinkUi(new LabelUi("dddddd@fdsfds.wa", "default5"), { "onClick":$GoToUrl } );
 			
 			_NameLabel.x = 40;
 			_NameLabel.y = 20;
@@ -243,6 +246,16 @@ package com.igz.curri2.ui
 			addChild(_NationalityLabel);	
 */					
 		}
+		
+		
+		public function $GoToUrl(m:MouseEvent):void
+		{
+			var url:URLRequest = new URLRequest("mailto:"+_PersonalDataDto.Mail);
+			url.method = URLRequestMethod.POST;
+			navigateToURL(url,"_blank");
+			
+		}
+		
 		
 		
 		private function _OnMouseOver(e:MouseEvent):void

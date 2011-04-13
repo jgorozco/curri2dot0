@@ -12,10 +12,31 @@
             "Photo": "http://lh3.ggpht.com/_z5BKP2TY3eg/SxgvhRZZ7fI/AAAAAAAAA7M/zJtBElLd34w/orla.jpg",
 			"initialDate": "01/06/2008"
         },
-		
+		"Theme":{
+			"line_scuare_1":"0x959595",
+			"line_content_1":"0xBBBBBB",	
+			"line_scuare_2":"0xACACAC",
+			"line_content_2":"0x9a9a9a",
+			"bg_application":"0xff0000",
+			"bg_proyectlist":"0XD1D1D1",
+			"bg_timeline":"0xeeeeee",
+			"line_timeline":"0xDDDDDD",
+			"bg_personal_data":"0xB1B1B1",
+			"bg_personal_line":"0XD1D1D1",
+			"close_button":"0X00AA00",
+			"line_bg_proyect_sheet":"0XCACACA",
+			"bg_proyect_sheet":"0XCCCCCC",
+			"line_bg_proyect_sheet_personal":"0XBABABA",
+			"bg_proyect_sheet_personal":"0XC0C0C0",
+			"soft_sep":"0x85A5CC",
+			"hard_sep":"0xD0E4F2",
+			"cursor_timeline":"0x363D52",
+			"bg_proyectsheet_details":"0xfafafa",
+			"scrollbar_proyectsheet_details":"0x999999"
+		},
 		"Tags":{
 				"Web Service":"0xFF6633",
-				"strubs":"FF6633",
+				"struts":"FF6633",
 				"Desktop App":"0xFFFF33",
 				"QT4":"0xFFFF33",
 				"Linux":"0x66CCFF",
@@ -33,7 +54,7 @@
             {
                 "Name": "CRUE",
                 "Category": "Web Service",
-                "SubCategory": "strubs",
+                "SubCategory": "struts",
                 "InitDate": "01/06/2008",
                 "EndDate": "01/09/2008",
                 "Description": "Intern in UPM, work in CRUE platform development, developing features of server side and jsp interface. I use Struts, hibernate and tomcat",
@@ -55,7 +76,7 @@
             {
                 "Name": "ISO 10001 platform ",
                 "Category": "Web Service",
-                "SubCategory": "strubs",
+                "SubCategory": "struts",
                 "InitDate": "01/12/2008",
                 "EndDate": "01/03/2009",
                 "Description": "I modify a web platform to adapt it to ISO 10001. I use struts, hibernate and jsp for interfaces.",
@@ -185,6 +206,28 @@
                 "Url": "" 
             },
 			{
+                "Name": "SIM card apdu",
+                "Category": "Mobile",
+                "SubCategory": "android",
+                "InitDate": "01/04/2011",
+                "EndDate": "",
+                "Description": "android app and android library for testing the sim access from the mobile phone, let it to send APDU to SIM card and communicating with a sim Applet",
+                "Company": "Telefonica i+d",
+				"Profesional":"true",
+                "Url": "" 
+            },	
+			{
+                "Name": "Javacard payment pilot",
+                "Category": "Mobile",
+                "SubCategory": "javacard",
+                "InitDate": "01/01/2011",
+                "EndDate": "0/03/2011",
+                "Description": "Investigation and testing about javacard STK applet for payment SIM applet. Interface menu and testing in several devices to test the callcontrol and menu capabilities.",
+                "Company": "Telefonica i+d",
+				"Profesional":"true",
+                "Url": "" 
+            },				
+			{
                 "Name": "Equipo actimel",
                 "Category": "Desktop App",
                 "SubCategory": "directx game",
@@ -206,6 +249,17 @@
 				"Profesional":"false",
                 "Url": "" 
             },
+			{
+                "Name": "Api explorer",
+                "Category": "Web Service",
+                "SubCategory": "javascript",
+                "InitDate": "01/02/2011",
+                "EndDate": "",
+                "Description": "API explorer were it shows all API versions, functionality and functions to test it and prove it from a website. Very usefull for developers who are testing news API.",
+                "Company": "",
+				"Profesional":"false",
+                "Url": "" 
+            },			
 			{
                 "Name": "Juntines",
                 "Category": "Web Service",

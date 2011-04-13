@@ -4,6 +4,7 @@ package com.igz.curri2.ui
 	import com.igz.curri2.frwk.ProyectDto;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
+	import flash.filters.GlowFilter;
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
 	import flash.text.TextFieldAutoSize;
@@ -46,6 +47,12 @@ package com.igz.curri2.ui
 				_Bg.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetColorOfTag("bg_proyect_sheet_personal"));	
 				
 			}
+			var myGlow:GlowFilter = new GlowFilter(); 
+			myGlow.inner=true; 
+			myGlow.color = 0x888888; 
+			myGlow.blurX = 13; 
+			myGlow.blurY = 13; 
+			_Bg.filters = [myGlow];
 			
 			_SheetHeight = 300;
 			_Bg.graphics.drawRoundRect(0, 0, $SheetWidth, _SheetHeight,50);
@@ -60,8 +67,12 @@ package com.igz.curri2.ui
 			_Category = new LabelUi(p_proyectDTO.SubCategory+" in "+p_proyectDTO.Category+" category ", "CenterH3");
 			//_SubCategory = new LabelUi(p_proyectDTO.SubCategory, "CenterH3");
 			_DetailsLabel = new LabelUi("Details", "CenterH3_u");
-			_ScrollDetails = new ScrollBarContainerUi( { "width":  $SheetWidth - 50, "height": 100, "borderAlpha" : 0, "backgroundAlpha": 0 } );
+			_ScrollDetails = new ScrollBarContainerUi( { "width":  $SheetWidth - 50, "height": 100, "borderAlpha" : 0, "backgroundAlpha": 1,"background":Frwk.$Current.$ThemeManager.$GetColorOfTag("bg_proyectsheet_details") } );
+			_ScrollDetails.$ScrollBarV.$MarkColor = Frwk.$Current.$ThemeManager.$GetColorOfTag("scrollbar_proyectsheet_details");
 			_ScrollDetails.$ScrollBarH.visible = false;
+			myGlow.blurX = 5; 
+			myGlow.blurY = 5; 
+			_ScrollDetails.filters = [myGlow];
 			_DetailsText = new LabelUi(p_proyectDTO.Description, "Content", { maxLines: 20, fixWidth: 200 } );
 			_ScrollDetails.addChild(_DetailsText);
 		trace("--->["+p_proyectDTO.Url+"]")
