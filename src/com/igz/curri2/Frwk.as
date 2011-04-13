@@ -37,9 +37,7 @@
 
 		public function $Init(p_complete:Function ) : void {
 			_onCompleteLoad = p_complete;
-			
-			Comm.$Get("theme.json", { onComplete:_OnCompleteLoadTheme } );
-			
+			Comm.$Get("userData.json", { onComplete:_OnCompleteLoadData } );			
 		}
 		
 		public function $AddSon(p_category:CategoryDto):int
@@ -84,19 +82,12 @@
 		}
 		
 		
-		private function _OnCompleteLoadTheme(p_event:CommEvent):void
-		{
-			if (p_event.$CommResponseType==CommResponseType.$JSON)
-			{
-			$ThemeManager = new ColorManager(p_event.$ResponseJSON);
-			}
-			Comm.$Get("userData.json", { onComplete:_OnCompleteLoadData } );
-		}
 		
 		private function _OnCompleteLoadData(p_event:CommEvent):void
 		{
 			if (p_event.$CommResponseType==CommResponseType.$JSON)
 			{
+			$ThemeManager = new ColorManager(p_event.$ResponseJSON.Data.Theme);
 			$PersonalData = new PersonalDataDto();
 			$PersonalData.$LoadFromJson(p_event.$ResponseJSON.Data.UserData);
 			$ArrayProyects = new Array();

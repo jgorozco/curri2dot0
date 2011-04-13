@@ -42,7 +42,7 @@ package com.igz.curri2.ui
 		private function _addPersonalData():void
 		{
 			_PersonalData = new PersonalDataUi();
-			_PersonalData.x = 150;
+			_PersonalData.x = (Fleaxy.$Current.$Stage.stageWidth-_PersonalData.width)/2;
 			_PersonalData.y =-300;
 			addChild(_PersonalData);
 			_PersonalData.$LoadPersonalData(Frwk.$Current.$PersonalData);
@@ -51,7 +51,7 @@ package com.igz.curri2.ui
 		
 		private function _addExtraPlugins():void
 		{
-			var MySettings:Object = { "width" : 200
+		/*	var MySettings:Object = { "width" : 200
 						, "height" : 200
 						, "OnClickFunction" : _clickedFunction
 				        }
@@ -73,7 +73,7 @@ package com.igz.curri2.ui
 		
 		addChild(_tagCloud);
 		_tagCloud.x = 690;
-		_tagCloud.y = 20;
+		_tagCloud.y = 20;*/
 		}		
 		private function _addProyectView():void
 		{

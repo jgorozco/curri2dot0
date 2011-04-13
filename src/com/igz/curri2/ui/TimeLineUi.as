@@ -52,10 +52,10 @@ package com.igz.curri2.ui
 		public function TimeLineUi(p_categorie:CategoriesUi=null) 
 		{
 			df= new DateFormatter();
-			df.formatString = "MM-YYYY";
+			df.formatString = "MM/YYYY";
 			$Bg = new Sprite();
 			_EndDate = new Date();
-			$Bg.graphics.beginFill( Frwk.$Current.$ThemeManager.$GetColorOfTag("bg_timeline"),1);
+			$Bg.graphics.beginFill( Frwk.$Current.$ThemeManager.$GetColorOfTag("bg_timeline"),0.1);
 			$Bg.graphics.drawRoundRect(0, 0, MAXHEIGHT, p_categorie.height,60,200);
 			$Bg.graphics.endFill();
 			addChild($Bg);
@@ -89,9 +89,9 @@ package com.igz.curri2.ui
 			_LineOfTimeline.y = ($Timeline.height - _LineOfTimeline.height) / 2;
 			$Timeline.addChild(_LineOfTimeline);
 			addChild($Timeline);
-			_DateSelected= new LabelUi("1/1/2001", "");
-			_DateInit = new LabelUi("1/1/2001", "");
-			_DateFinish = new LabelUi("1/1/2011", "");
+			_DateSelected= new LabelUi("1/1/2001", "default0");
+			_DateInit = new LabelUi("1/1/2001", "default2");
+			_DateFinish = new LabelUi("1/1/2011", "default2");
 			addChild(_DateInit);
 			addChild(_DateFinish);
 			var clicked:Sprite = new Sprite();
@@ -99,15 +99,15 @@ package com.igz.curri2.ui
 			clicked.graphics.drawRoundRect(0, -7, 10, 54, 10, 10);
 			clicked.graphics.endFill();
 			clicked.graphics.beginFill(Frwk.$Current.$ThemeManager.$GetColorOfTag("cursor_timeline"));
-			clicked.graphics.drawCircle(5, 20, 17);
+			clicked.graphics.drawCircle(5, 20, 20);
 			clicked.graphics.endFill();		
 			clicked.graphics.lineStyle(2, 0xFAFAFA, 1, true);
-			clicked.graphics.moveTo(15, 15);
-			clicked.graphics.lineTo(18, 19);
-			clicked.graphics.lineTo(15, 23);
-			clicked.graphics.moveTo(-5, 15);
-			clicked.graphics.lineTo(-8, 19);
-			clicked.graphics.lineTo(-5, 23);
+			clicked.graphics.moveTo(19, 15);
+			clicked.graphics.lineTo(22, 20);
+			clicked.graphics.lineTo(19, 25);
+			clicked.graphics.moveTo(-9, 15);
+			clicked.graphics.lineTo(-12, 20);
+			clicked.graphics.lineTo(-9, 25);
 			//			clicked.graphics.endFill();				
 			_Selector = new LinkUi(clicked, { "onMouseDown" : _OnSelectorMouseDown
 											, "onMouseUp"   : _OnSelectorMouseUp 
@@ -119,8 +119,8 @@ package com.igz.curri2.ui
 			_selectorActualPercent = 0;
 			addChild(_Selector);
 			clicked.addChild(_DateSelected);
-			_DateSelected.x =  -(_DateSelected.width / 2);
-			_DateSelected.y =  - 20;
+			_DateSelected.x =  -10;
+			_DateSelected.y =  13;
 			_ProfesionalLabel = new LabelUi("Profesional proyects", "CenterH1");
 			_PersonalLabel = new LabelUi("Personal proyects", "CenterH1");
 			addChild(_ProfesionalLabel);
@@ -237,7 +237,9 @@ private function _OnMouseOver(e:MouseEvent):void
 		
 			_DateInit.text = df.format(_InitialDate);
 			_DateFinish.text =  df.format(_EndDate);
-			_DateSelected.text=df.format(_SelectedDate);
+			var dform2:DateFormatter = new DateFormatter();
+			dform2.formatString = "MM/YY";
+			_DateSelected.text=dform2.format(_SelectedDate);
 		
 			_resizeTimeline();
 		
@@ -423,7 +425,9 @@ private function _OnMouseOver(e:MouseEvent):void
 			var anios:Number = ((meses+1) / 12)+ _InitialDate.getFullYear();
 			_SelectedDate.setMonth((meses % 12)+1);
 			_SelectedDate.setFullYear(anios);
-			_DateSelected.text=df.format(_SelectedDate);
+			var dform2:DateFormatter = new DateFormatter();
+			dform2.formatString = "MM/YY";
+			_DateSelected.text=dform2.format(_SelectedDate);
 		}
 		
 		private function _resizeTimeline():void

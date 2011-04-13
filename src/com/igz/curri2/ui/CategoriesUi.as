@@ -27,7 +27,7 @@ package com.igz.curri2.ui
 		private var _SubCategories:CategoriesUi;
 		public var $CatContainer:Sprite;
 		public var $IsHidden:Boolean;
-		
+		public var $BG:Sprite;
 		private var _Settings:Object={ "width" : 80
 									, "height" : 300
 									, "btnWith":20
@@ -57,10 +57,20 @@ package com.igz.curri2.ui
 				$BtnMedidas = new Point(0,0);
 			}
 			$IsHidden = _principal;
-			graphics.beginFill(color);
-			graphics.drawRoundRect(0, 0, _Settings["width"], _Settings["height"],40);
-			graphics.endFill();
-			addChild($CatContainer);
+			$BG = new Sprite();
+			$BG.graphics.beginFill(color);
+			$BG.graphics.drawRoundRect(0, 0, _Settings["width"], _Settings["height"],40);
+			$BG.graphics.endFill();
+			var myGlow:GlowFilter = new GlowFilter(); 
+			myGlow.inner=true; 
+			myGlow.color = 0x888888; 
+		//	myGlow.knockout = true;
+		//	myGlow.strength = 200;
+			myGlow.blurX = 13; 
+			myGlow.blurY = 13; 
+			$BG.filters = [myGlow];
+			addChild($BG);
+			$BG.addChild($CatContainer);
 			if (_principal)
 			{
 				var linked:Sprite = new Sprite();
@@ -68,17 +78,22 @@ package com.igz.curri2.ui
 				linked.graphics.drawRoundRect(0, 0, _Settings["btnWith"], _Settings["btnHeight"],_Settings["btnWith"]);
 				linked.graphics.endFill();
 				var cross:Sprite = new Sprite();
-				cross.graphics.beginFill(0xffffff);
+				//cross.graphics.beginFill(0xffffff);
 				cross.graphics.lineStyle(2, 0xffffff, 1, true);
 				var tamanio:Number = 5;
-				cross.graphics.moveTo(linked.width / 2, linked.height / 2);
+				cross.graphics.moveTo(linked.width / 4, linked.height / 2);
+				cross.graphics.lineTo((3 * linked.width / 4),  linked.height / 2);
+				cross.graphics.lineTo(( linked.width / 2),  linked.height / 4);
+				cross.graphics.moveTo((3 * linked.width / 4),  linked.height / 2);
+				cross.graphics.lineTo(( linked.width / 2),  3*linked.height / 4);
+			/*	cross.graphics.moveTo(linked.width / 2, linked.height / 2);
 				cross.graphics.lineTo((linked.width / 2) - tamanio, (linked.height / 2) - tamanio);
 				cross.graphics.moveTo(linked.width / 2, linked.height / 2);
 				cross.graphics.lineTo((linked.width / 2) -tamanio, (linked.height / 2) + tamanio);
 				cross.graphics.moveTo(linked.width / 2, linked.height / 2);
 				cross.graphics.lineTo((linked.width / 2) + tamanio, (linked.height / 2) + tamanio);
 				cross.graphics.moveTo(linked.width / 2, linked.height / 2);
-				cross.graphics.lineTo((linked.width / 2) + tamanio, (linked.height / 2) -tamanio);
+				cross.graphics.lineTo((linked.width / 2) + tamanio, (linked.height / 2) -tamanio);*/
 				linked.addChild(cross);
 				_BackButton = new LinkUi(linked, { "onClick":_OnClickReturn 
 													,"onMouseOver":_OnMouseOver_btn
@@ -202,13 +217,13 @@ package com.igz.curri2.ui
 			{
 				_BackButton.x =maxW-_BackButton.width+5;
 			}
-			graphics.clear();
-			graphics.beginFill(_Settings["color"] as Number);
+			$BG.graphics.clear();
+			$BG.graphics.beginFill(_Settings["color"] as Number);
 			trace("_________tellme the widht! [" + $CatContainer.width + "] and max? [" + maxW + "]");
-			graphics.lineStyle(4, Frwk.$Current.$ThemeManager.$GetColorOfTag("line_content_1"), 1);
-			graphics.drawRoundRect(0, 0,maxW, _Settings["height"], 40);
+			//graphics.lineStyle(4, Frwk.$Current.$ThemeManager.$GetColorOfTag("line_content_1"), 1);
+			$BG.graphics.drawRoundRect(0, 0,maxW, _Settings["height"], 40);
 		//	$CatContainer.x = 50;
-			graphics.endFill();
+			$BG.graphics.endFill();
 		}
 		
 		private function _GetCategorie(p_str:String):CategoryDto
