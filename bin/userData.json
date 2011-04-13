@@ -35,7 +35,7 @@
 			"scrollbar_proyectsheet_details":"0x999999"
 		},
 		"Tags":{
-				"Web Service":"0xFF6633",
+				"Web Service":"0xFF33cc",
 				"struts":"FF6633",
 				"Desktop App":"0xFFFF33",
 				"QT4":"0xFFFF33",
@@ -48,6 +48,8 @@
 				"Flash lite":"0xFF0033",
 				"Flash":"0xFF0033",
 				"android":"0x33FF33",
+				"javacard":"0x996633",
+				"javascript":"0x9999ff",
 				"directx game":"0x66FF99"
 			},
         "Proyects": [
