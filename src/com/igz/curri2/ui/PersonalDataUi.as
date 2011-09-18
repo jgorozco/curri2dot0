@@ -251,6 +251,7 @@ package com.igz.curri2.ui
 		public function $GoToUrl(m:MouseEvent):void
 		{
 			var url:URLRequest = new URLRequest("mailto:"+_PersonalDataDto.Mail);
+			
 			url.method = URLRequestMethod.POST;
 			navigateToURL(url,"_blank");
 			

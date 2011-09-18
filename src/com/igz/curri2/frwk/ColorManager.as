@@ -20,7 +20,7 @@ package com.igz.curri2.frwk
 			trace("----getting color [" + p_element + "]=[" + s + "]");
 			if (s != null)
 			{
-				color = Number(s);
+				color = Number("0x"+s);
 			}
 			return color;
 	/*		if (p_element == "line_scuare_1")
