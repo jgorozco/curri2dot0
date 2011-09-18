@@ -5,7 +5,12 @@ package com.igz.curri2.ui
 	import com.igz.curri2.frwk.CategoryDto;
 	import com.igz.curri2.frwk.PersonalDataDto;
 	import flash.display.Sprite;
+	import flash.external.ExternalInterface;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
+	import flash.net.URLVariables;
 	import igz.fleaxy.Fleaxy;
+	import igz.fleaxy.ui.ShieldUi;
 	import igz.fleaxy.ui.text.LabelUi;
 	import mx.controls.Label;
 	
@@ -24,10 +29,37 @@ package com.igz.curri2.ui
 		
 		public function MainWindowUi() 
 		{
-		_addTimeline();
-		_addExtraPlugins();
-		_addProyectView();
-		_addPersonalData();
+		if (Frwk.$Current.$PersonalData == null)
+		{
+			_addError();
+			
+		}else
+		{
+			_addTimeline();
+			_addExtraPlugins();
+			_addProyectView();
+			_addPersonalData();
+		}
+		
+		}
+		
+		
+		private function _addError():void
+		{
+		var err:ShieldUi = new ShieldUi();
+		var c:String = "NO PARAMETER IN URL, try with ?mail={cv email}";
+		if (ExternalInterface.available){
+			c = ExternalInterface.call("window.location.href.toString");
+		//	var arr:Array = c.split("?");
+		//	c = arr[1];
+			var arr:Array = c.split("=");
+			c = arr[1];
+		}
+		
+		//var d:String = Fleaxy.$Current.$Stage.loaderInfo.parameters;
+		var lbl:LabelUi = new LabelUi("problem with mail ["+c+"] check it and try again ", "default6");
+		err.addChild(lbl);
+		addChild(err);
 		}
 		
 		private function _addTimeline():void

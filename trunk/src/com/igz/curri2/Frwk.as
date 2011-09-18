@@ -4,26 +4,27 @@
 	import com.igz.curri2.frwk.ProyectDto;
 	import com.igz.curri2.frwk.ColorManager;
 	import com.igz.curri2.ui.CategoriesUi;
+	import flash.external.ExternalInterface;
+	import igz.fleaxy.configuration.ConfigurationManager;
 	import igz.fleaxy.Fleaxy;
 	import igz.fleaxy.net.Comm;
 	import igz.fleaxy.events.CommEvent;
 	import com.igz.curri2.ui.Gui;
 	import igz.fleaxy.net.CommResponseType;
-
+	import igz.fleaxy.util.ObjectUtil;
 	/**
 	 * ...
 	 * @author josevk
 	 */
 	public class Frwk {
 
-		public var $PersonalData:PersonalDataDto;
-		public var $ArrayProyects:Array;
-		public var $ShowedProyects:Array;
-		public var $Categories:Array;
-		public var $ThemeManager:ColorManager;
-		public var $TagColorManager:ColorManager;
+		public var $PersonalData:PersonalDataDto=null;
+		public var $ArrayProyects:Array=null;
+		public var $ShowedProyects:Array=null;
+		public var $Categories:Array=null;
+		public var $ThemeManager:ColorManager=null;
+		public var $TagColorManager:ColorManager=null;
 		private var _onCompleteLoad:Function;
-		
 		static protected var _Current:Frwk;
 		static public function get $Current() : Frwk {
 			if ( _Current == null ) {
@@ -37,7 +38,25 @@
 
 		public function $Init(p_complete:Function ) : void {
 			_onCompleteLoad = p_complete;
-			Comm.$Get("userData.json", { onComplete:_OnCompleteLoadData } );			
+			var c:String = "";
+			if (ExternalInterface.available){
+				c = ExternalInterface.call("window.location.href.toString");
+			//	var arr:Array = c.split("?");
+			//	c = arr[1];
+				var arr:Array = c.split("=");
+				c = arr[1];
+				if (c == null)
+				{
+					c = "joseval1ekas@gmail.com"
+					}
+			}else {
+				c = "joseval1ekas@gmail.com";
+				}
+			
+			var content:String = Fleaxy.$Current.$ConfigurationManager.$GetValue("com.igz.curri2/BASE_URI") + c;
+			trace("content[" + content + "]");
+			
+			Comm.$Get(content, { onComplete:_OnCompleteLoadData } );			
 		}
 		
 		public function $AddSon(p_category:CategoryDto):int
@@ -85,39 +104,42 @@
 		
 		private function _OnCompleteLoadData(p_event:CommEvent):void
 		{
+			if ("{\"status\":\"ERROR[bad argument]\"}" == p_event.$ResponseText)
+			{
+				_onCompleteLoad();
+			}else
 			if (p_event.$CommResponseType==CommResponseType.$JSON)
 			{
-			$ThemeManager = new ColorManager(p_event.$ResponseJSON.Data.Theme);
-			$PersonalData = new PersonalDataDto();
-			$PersonalData.$LoadFromJson(p_event.$ResponseJSON.Data.UserData);
-			$ArrayProyects = new Array();
-			$Categories = new Array ();
-			$TagColorManager = new ColorManager(p_event.$ResponseJSON.Data.Tags);
-			var arr:Array = (p_event.$ResponseJSON.Data.Proyects as Array);
-			var aux:ProyectDto;
-			var category:CategoryDto;
-			var subCat:CategoryDto;
-			for each (var itm:Object in arr) 
-				{
-					aux = new ProyectDto();
-					//sacamos la fecha minima para la grafica
-					aux.$LoadFromJson(itm);
-					$ArrayProyects.push(aux);
-					category = new CategoryDto();
-					category.$Name = aux.Category;
-					var d:int = $AddSon(category);
-					subCat = new CategoryDto();
-					subCat.$Name = aux.SubCategory;
-					($Categories[d] as CategoryDto).$AddSon(subCat);
-					
-				}
-			}
-			for each (var itm1:CategoryDto in $Categories)
+				$ThemeManager = new ColorManager(p_event.$ResponseJSON.Data.Theme);
+				$PersonalData = new PersonalDataDto();
+				$PersonalData.$LoadFromJson(p_event.$ResponseJSON.Data.UserData);
+				$ArrayProyects = new Array();
+				$Categories = new Array ();
+				$TagColorManager = new ColorManager(p_event.$ResponseJSON.Data.Tags);
+				var arr:Array = (p_event.$ResponseJSON.Data.Proyects as Array);
+				var aux:ProyectDto;
+				var category:CategoryDto;
+				var subCat:CategoryDto;
+				for each (var itm:Object in arr) 
+					{
+						aux = new ProyectDto();
+						//sacamos la fecha minima para la grafica
+						aux.$LoadFromJson(itm);
+						$ArrayProyects.push(aux);
+						category = new CategoryDto();
+						category.$Name = aux.Category;
+						var d:int = $AddSon(category);
+						subCat = new CategoryDto();
+						subCat.$Name = aux.SubCategory;
+						($Categories[d] as CategoryDto).$AddSon(subCat);
+						
+					}
+				_onCompleteLoad();
+			}else 
 			{
-			trace("Category::" + itm1.ToString() );	
-				
-			}	
-			_onCompleteLoad();
+				_onCompleteLoad();
+			}
+			
 		}
 	}
 }
