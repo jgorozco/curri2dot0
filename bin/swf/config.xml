@@ -28,9 +28,9 @@
 	</SYSTEM>
 
 	<com.igz.curri2>
-		<BASE_URI dev='' 
-				  int='' 
-				  pro='' 
+		<BASE_URI dev='http://curri2dot0.appspot.com/getUserData?type=all&mail=' 
+				  int='http://curri2dot0.appspot.com/getUserData?type=all&mail=' 
+				  pro='http://curri2dot0.appspot.com/getUserData?type=all&mail=' 
 		/>
 	</com.igz.curri2>
 
