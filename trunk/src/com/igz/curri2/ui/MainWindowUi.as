@@ -10,8 +10,10 @@ package com.igz.curri2.ui
 	import flash.net.URLRequest;
 	import flash.net.URLVariables;
 	import igz.fleaxy.Fleaxy;
+	import igz.fleaxy.net.LoaderUi;
 	import igz.fleaxy.ui.ShieldUi;
 	import igz.fleaxy.ui.text.LabelUi;
+	import igz.fleaxy.util.SpriteUtil;
 	import mx.controls.Label;
 	
 	/**
@@ -26,27 +28,49 @@ package com.igz.curri2.ui
 		private var _ComboCategoriesUI:ComboCategoriesUI;
 		private var _SecondaryCategories:CategoriesUi;
 		private var _ProyectUi:ProyectUi;
-		
+		private var _SearchComboUi:SearchComboUi;
+		private var _loadingBanner:Sprite;
 		public function MainWindowUi() 
 		{
-		if (Frwk.$Current.$PersonalData == null)
-		{
-			_addError();
 			
-		}else
+			_loadingBanner = new Sprite();
+			$ShowLoading();
+			
+		}
+		
+		public function $ShowLoading():void
 		{
+			SpriteUtil.$RemoveChildsOf(this);
+			_loadingBanner.addChild(new LabelUi("loading...", "default5"));
+			_loadingBanner.x = (Fleaxy.$Current.$Stage.stageWidth-_loadingBanner.width)/2;
+			_loadingBanner.y = (Fleaxy.$Current.$Stage.stageHeight-_loadingBanner.height)/2;
+			addChild(_loadingBanner);
+		}
+		
+		public function initData():void
+		{
+			SpriteUtil.$RemoveChildsOf(this);
+			if (Frwk.$Current.$PersonalData == null)
+			{
+			_showComboSearch();
+			
+			}else {
+			
 			_addTimeline();
 			_addExtraPlugins();
 			_addProyectView();
 			_addPersonalData();
+			}
 		}
 		
-		}
 		
-		
-		private function _addError():void
+		private function _showComboSearch():void
 		{
-		var err:ShieldUi = new ShieldUi();
+			SpriteUtil.$RemoveChildsOf(this);
+			_SearchComboUi = new SearchComboUi();
+			addChild(_SearchComboUi);
+			
+	/*	var err:ShieldUi = new ShieldUi();
 		var c:String = "NO PARAMETER IN URL, try with ?mail={cv email}";
 		if (ExternalInterface.available){
 			c = ExternalInterface.call("window.location.href.toString");
@@ -59,7 +83,7 @@ package com.igz.curri2.ui
 		//var d:String = Fleaxy.$Current.$Stage.loaderInfo.parameters;
 		var lbl:LabelUi = new LabelUi("problem with mail ["+c+"] check it and try again ", "default6");
 		err.addChild(lbl);
-		addChild(err);
+		addChild(err);*/
 		}
 		
 		private function _addTimeline():void

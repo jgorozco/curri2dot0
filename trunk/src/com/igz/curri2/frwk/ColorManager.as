@@ -17,7 +17,7 @@ package com.igz.curri2.frwk
 		{
 			var color:Number=0x00ff00;trace("----getting color [" + p_element + "]");
 			var s:String = (_Style[p_element] as String);
-			trace("----getting color [" + p_element + "]=[" + s + "]");
+		//	trace("----getting color [" + p_element + "]=[" + s + "]");
 			if (s != null)
 			{
 				color = Number("0x"+s);

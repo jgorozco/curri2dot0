@@ -25,6 +25,8 @@
 		public var $ThemeManager:ColorManager=null;
 		public var $TagColorManager:ColorManager=null;
 		private var _onCompleteLoad:Function;
+		public var $CVToLoad:String;
+		public var $firstSearch:int;
 		static protected var _Current:Frwk;
 		static public function get $Current() : Frwk {
 			if ( _Current == null ) {
@@ -37,26 +39,34 @@
 		}
 
 		public function $Init(p_complete:Function ) : void {
+			$firstSearch = 0;
 			_onCompleteLoad = p_complete;
 			var c:String = "";
 			if (ExternalInterface.available){
 				c = ExternalInterface.call("window.location.href.toString");
+				$firstSearch = 1;
 			//	var arr:Array = c.split("?");
 			//	c = arr[1];
 				var arr:Array = c.split("=");
 				c = arr[1];
 				if (c == null)
 				{
-					c = "joseval1ekas@gmail.com"
-					}
-			}else {
-				c = "joseval1ekas@gmail.com";
+					c = "josevalekas@gmail.com";
 				}
-			
-			var content:String = Fleaxy.$Current.$ConfigurationManager.$GetValue("com.igz.curri2/BASE_URI") + c;
+			}else {
+					c = "josevalekas@gmail.com";
+				}
+		//		var content:String = "UserData.json";
+		$CVToLoad = c;
+		loadCV();
+		}
+		
+		public function loadCV():void
+		{
+			var content:String = Fleaxy.$Current.$ConfigurationManager.$GetValue("com.igz.curri2/BASE_URI") + $CVToLoad;
 			trace("content[" + content + "]");
+			Comm.$Get(content, { onComplete:_OnCompleteLoadData } );	
 			
-			Comm.$Get(content, { onComplete:_OnCompleteLoadData } );			
 		}
 		
 		public function $AddSon(p_category:CategoryDto):int
@@ -70,7 +80,6 @@
 						returned = i;
 						($Categories[i] as CategoryDto).$Increment();
 						add = true;
-						
 					}
 			}
 			if (!add)
