@@ -1,15 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project>
+<project version="2">
   <!-- Output SWF options -->
   <output>
-    <movie disabled="False" />
+    <movie outputType="Application" />
     <movie input="" />
     <movie path="bin\curri2dot0.swf" />
     <movie fps="24" />
     <movie width="1000" />
     <movie height="700" />
     <movie version="10" />
+    <movie minorVersion="0" />
+    <movie platform="Flash Player" />
     <movie background="#FFFFFF" />
+    <movie preferredSDK="Flex 3.5, AIR 1.5.3;3.5.0, 1.5.3;" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
@@ -27,8 +30,10 @@
     <option locale="" />
     <option loadConfig="" />
     <option optimize="False" />
+    <option omitTraces="True" />
     <option showActionScriptWarnings="True" />
     <option showBindingWarnings="True" />
+    <option showInvalidCSS="True" />
     <option showDeprecationWarnings="True" />
     <option showUnusedTypeSelectorWarnings="True" />
     <option strict="True" />
@@ -41,7 +46,7 @@
     <option staticLinkRSL="True" />
     <option additional="" />
     <option compilerConstants="" />
-    <option customSDK="C:\IGZ\Proyectos\third-party\adobe\flex_sdk_3.3.0.4589_mpl" />
+    <option minorVersion="" />
   </build>
   <!-- SWC Include Libraries -->
   <includeLibraries>
@@ -84,4 +89,6 @@
     <option showHiddenPaths="False" />
     <option testMovie="ExternalPlayer" />
   </options>
+  <!-- Plugin storage -->
+  <storage />
 </project>

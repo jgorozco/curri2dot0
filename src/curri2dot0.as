@@ -13,7 +13,7 @@
 	 * ...
 	 * @author josevk
 	 */
-	[SWF(width="1000", height="700", frameRate="24", backgroundColor="#c1c1c1")]
+	[SWF(width="1000", height="700", frameRate="24", backgroundColor="0xDDDDDD")]
 	public class curri2dot0 extends Sprite {
 
 		//{ EMBED IMAGEs
@@ -73,7 +73,8 @@
 		}
 
 		protected function _FleaxyInit_OnComplete() : void {
-			 Frwk.$Current.$Init(Gui.$Current.$Init);
+			  Gui.$Current.$Init();
+			 Frwk.$Current.$Init(Gui.$Current.MainWindow.initData);
 		}
 
 	}
