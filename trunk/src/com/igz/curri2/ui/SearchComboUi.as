@@ -4,13 +4,18 @@ package com.igz.curri2.ui
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.external.ExternalInterface;
+	import flash.net.SharedObject;
+	import flash.net.URLRequest;
+	import flash.net.URLRequestMethod;
 	import igz.fleaxy.Fleaxy;
+	import igz.fleaxy.locale.LocaleManager;
 	import igz.fleaxy.ui.ButtonUi;
 	import igz.fleaxy.ui.form.input.Input;
 	import igz.fleaxy.ui.form.input.InputType;
+	import igz.fleaxy.ui.form.select.SelectUi;
 	import igz.fleaxy.ui.LinkUi;
 	import igz.fleaxy.ui.text.LabelUi;
-	import mx.utils.StringUtil;
+	import flash.net.navigateToURL;
 	/**
 	 * ...
 	 * @author ...
@@ -19,6 +24,7 @@ package com.igz.curri2.ui
 	{
 		private var _TitleLabel:LabelUi;
 		private var _Input:Input;
+	//	private var _Recommend:Sprite;
 		
 		
 		public function SearchComboUi()
@@ -29,17 +35,24 @@ package com.igz.curri2.ui
 			s.graphics.drawRoundRect(0, 0, 400, 350, 20, 20);
 			s.graphics.endFill();
 			s.x = (Fleaxy.$Current.$Stage.stageWidth-s.width)/2;
-			s.y = (Fleaxy.$Current.$Stage.stageHeight-s.height)/2;
+			s.y = (Fleaxy.$Current.$Stage.stageHeight - s.height) / 2;
 			
-			var title:String = "Type the email from the CV you want to search";
+			var title:String = LocaleManager.$GetText("COMBO","INPUT_MAIL");
 			if (Frwk.$Current.$firstSearch>0)
 			{
-				title = "The input mail is wrong. Try to type it again";
+				title = LocaleManager.$GetText("COMBO", "BAD_MAIL");
+				// _Recommend = new Sprite();
+				var label:LabelUi = new LabelUi( LocaleManager.$GetText("COMBO", "RECOM") + Frwk.$Current.$CVToLoad, "default2");
+				var link:LinkUi = new LinkUi(label, { "onClick":$recomendMail } );
+				link.x = 25;
+				link.y = 300;
+				s.addChild(link);
+
 			}
 			_TitleLabel = new LabelUi(title,"default4", { "fixWidth" : 350
 														, "maxLines" : 2
 														});
-			
+														
 
 			_Input = new Input("search_combo", { "width":350,
 												"inputType" : InputType.$MAIL} );
@@ -64,6 +77,28 @@ package com.igz.curri2.ui
 			s.addChild(button);
 
 			addChild(s);
+			/*
+			var ShareObj:SharedObject = SharedObject.getLocal("lastCV");
+			var arr:Array = ShareObj.data.lastSearch;
+			if (arr != null)
+			{
+			_ListCV = new SelectUi("lastSearchs");
+			for (var i = 0; i < arr.length; i++)
+			{
+			_ListCV.$AddItem(arr[i], arr[i]);	
+			}
+			addChild(_ListCV);
+			}
+			*/
+		}
+		
+		public function $recomendMail(e:MouseEvent):void
+		{
+			var subj:String = "mailto:"+Frwk.$Current.$CVToLoad+"?subject="+LocaleManager.$GetText("COMBO", "RECOM_MAIL");
+			trace("MAILTOOOO:"+subj);
+			var url:URLRequest = new URLRequest(subj);
+			url.method = URLRequestMethod.POST;
+			navigateToURL(url,"_blank");		
 		}
 		
 		public function f_searchPerson():void
@@ -76,7 +111,8 @@ package com.igz.curri2.ui
 				Frwk.$Current.loadCV();
 			}else
 			{
-			_Input.$Value = "put here the email!";
+				
+			_Input.$Value = LocaleManager.$GetText("COMBO","PUT_MAIL");
 			}
 			
 		}
