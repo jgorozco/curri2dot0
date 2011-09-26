@@ -11,7 +11,7 @@
 			<PRO uri='' />
 		</ENVIRONMENT>
 		<LOCALE>
-			<DEFAULT iso639='ES' />
+			<DEFAULT iso639='EN' />
 			<FILE name='ES' dev='./swf/iso639/es.xml'
 							int='./swf/iso639/es.xml' 
 							pro='./swf/iso639/es.xml' 

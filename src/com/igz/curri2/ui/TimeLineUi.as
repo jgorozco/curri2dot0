@@ -9,6 +9,7 @@ package com.igz.curri2.ui
 	import flash.filters.GlowFilter;
 	import flash.geom.Rectangle;
 	import igz.fleaxy.Fleaxy;
+	import igz.fleaxy.locale.LocaleManager;
 	import igz.fleaxy.ui.LinkUi;
 	import igz.fleaxy.ui.text.LabelUi;
 	import igz.fleaxy.util.SpriteUtil;
@@ -121,8 +122,8 @@ package com.igz.curri2.ui
 			clicked.addChild(_DateSelected);
 			_DateSelected.x =  -10;
 			_DateSelected.y =  13;
-			_ProfesionalLabel = new LabelUi("Profesional proyects", "CenterH1");
-			_PersonalLabel = new LabelUi("Personal proyects", "CenterH1");
+			_ProfesionalLabel = new LabelUi(LocaleManager.$GetText("TIMELINE","PROFESIONAL_PROJ"), "CenterH1");
+			_PersonalLabel = new LabelUi(LocaleManager.$GetText("TIMELINE","PERSONAL_PROJ"), "CenterH1");
 			addChild(_ProfesionalLabel);
 			addChild(_PersonalLabel);
 			_resizeTimeline();

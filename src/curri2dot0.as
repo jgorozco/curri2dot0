@@ -7,7 +7,9 @@
 	import flash.display.StageQuality;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
+	import flash.system.Capabilities;
 	import igz.fleaxy.Fleaxy;
+	import igz.fleaxy.locale.LocaleManager;
 
 	/**
 	 * ...
@@ -73,10 +75,11 @@
 		}
 
 		protected function _FleaxyInit_OnComplete() : void {
-			  Gui.$Current.$Init();
+			trace(LocaleManager.$Iso639 + "//" + LocaleManager.$GetText("GLOBAL", "LOADING"));
+    		  Gui.$Current.$Init();
 			 Frwk.$Current.$Init(Gui.$Current.MainWindow.initData);
-		}
-
+			}
+		
 	}
 	
 }

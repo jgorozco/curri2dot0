@@ -6,10 +6,12 @@ package com.igz.curri2.ui
 	import com.igz.curri2.frwk.PersonalDataDto;
 	import flash.display.Sprite;
 	import flash.external.ExternalInterface;
+	import flash.net.SharedObject;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.net.URLVariables;
 	import igz.fleaxy.Fleaxy;
+	import igz.fleaxy.locale.LocaleManager;
 	import igz.fleaxy.net.LoaderUi;
 	import igz.fleaxy.ui.ShieldUi;
 	import igz.fleaxy.ui.text.LabelUi;
@@ -41,7 +43,7 @@ package com.igz.curri2.ui
 		public function $ShowLoading():void
 		{
 			SpriteUtil.$RemoveChildsOf(this);
-			_loadingBanner.addChild(new LabelUi("loading...", "default5"));
+			_loadingBanner.addChild(new LabelUi(LocaleManager.$GetText("GLOBAL","LOADING"), "default5"));
 			_loadingBanner.x = (Fleaxy.$Current.$Stage.stageWidth-_loadingBanner.width)/2;
 			_loadingBanner.y = (Fleaxy.$Current.$Stage.stageHeight-_loadingBanner.height)/2;
 			addChild(_loadingBanner);
@@ -55,6 +57,20 @@ package com.igz.curri2.ui
 			_showComboSearch();
 			
 			}else {
+			var ShareObj:SharedObject = SharedObject.getLocal("lastCV");
+			var arr:Array = ShareObj.data.lastSearch;
+			if (arr == null)
+			{
+			arr = new Array();	
+			}
+			if (arr.length >= 5)
+			{
+			arr.pop();	
+			}
+			arr.push(Frwk.$Current.$CVToLoad);
+			ShareObj.data.lastSearch = arr;
+			ShareObj.flush();
+			
 			
 			_addTimeline();
 			_addExtraPlugins();

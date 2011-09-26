@@ -15,6 +15,7 @@ package com.igz.curri2.ui
 	import flash.net.URLRequest;
 	import flash.net.URLRequestMethod;
 	import igz.fleaxy.events.CommEvent;
+	import igz.fleaxy.locale.LocaleManager;
 	import igz.fleaxy.net.Comm;
 	import igz.fleaxy.net.CommResponseType;
 	import igz.fleaxy.ui.LinkUi;
@@ -81,7 +82,7 @@ package com.igz.curri2.ui
 			
 			addChild(s);
 			$Showed = false;
-			var personalData:LabelUi = new LabelUi("Mostrar Datos Personales", "CenterH1");
+			var personalData:LabelUi = new LabelUi(LocaleManager.$GetText("PERSONAL_DATA","SHOW_DATA"), "CenterH1");
 			_LabelShowPersonal = new LinkUi(personalData, { "onClick":_OnClickShow,"onMouseOver":_OnMouseOver, "onMouseOut":_OnMouseOut } );
 			addChild(_LabelShowPersonal);
 			_LabelShowPersonal.x = (this.width-_LabelShowPersonal.width) / 2;
@@ -121,8 +122,8 @@ package com.igz.curri2.ui
 		}
 		private function _CreateElementsLabel():void
 		{
-			_NameLabel = new LabelUi("Nombre y apellidos :", "default3");
-			_MailLabel = new LabelUi("e-Mail :", "default3");	
+			_NameLabel = new LabelUi(LocaleManager.$GetText("PERSONAL_DATA","NAME_SURN"), "default3");
+			_MailLabel = new LabelUi(LocaleManager.$GetText("PERSONAL_DATA","MAIL"), "default3");	
 			
 			_NameData = new LabelUi("noname qwertyuiop qwertgfdsa", "default5");
 			_MailData = new LinkUi(new LabelUi("dddddd@fdsfds.wa", "default5"), { "onClick":$GoToUrl } );
@@ -152,18 +153,18 @@ package com.igz.curri2.ui
 			_PhotoData.y = 150;					
 			
 			/*************************************/
-			_OthersData = new LabelUi("Otros Datos:", "default5");
+			_OthersData = new LabelUi(LocaleManager.$GetText("PERSONAL_DATA","OTHER_DATA") , "default5");
 			_OthersData.x = 360;
 			_OthersData.y = 20;
 			addChild(_OthersData);
 			
 			/*creacion labels*/
-			_PhoneLabel = new LabelUi("Teléfono :", "default2");
-			_AddressLabel = new LabelUi("Dirección :","default2");			
-			_DriveLicenseLabel = new LabelUi("Carnet de Conducir :","default2");
-			_UniversityLabel = new LabelUi("Estudios :", "default2");
-			_PoblationLabel=new LabelUi("Población :", "default2");
-			_NationalityLabel = new LabelUi("Nacionalidad :", "default2");
+			_PhoneLabel = new LabelUi(LocaleManager.$GetText("PERSONAL_DATA","PHONE") , "default2");
+			_AddressLabel = new LabelUi(LocaleManager.$GetText("PERSONAL_DATA","ADDRS"),"default2");			
+			_DriveLicenseLabel = new LabelUi(LocaleManager.$GetText("PERSONAL_DATA","DRIV_LICENSE"),"default2");
+			_UniversityLabel = new LabelUi(LocaleManager.$GetText("PERSONAL_DATA","STUDIES"), "default2");
+			_PoblationLabel=new LabelUi(LocaleManager.$GetText("PERSONAL_DATA","POBLATION"), "default2");
+			_NationalityLabel = new LabelUi(LocaleManager.$GetText("PERSONAL_DATA","COUNTRY"), "default2");
 			/*creacion contents*/
 			_PhoneData = new LabelUi("666666", "default2");
 			_AddressData = new LabelUi("c/qwerty", "default2");		
@@ -297,10 +298,10 @@ package com.igz.curri2.ui
 			var label:LabelUi=(_LabelShowPersonal.$DisplayObject as LabelUi);
 			if (!$Showed)
 			{
-				label.text = "Mostrar Datos Personales";
+				label.text = LocaleManager.$GetText("PERSONAL_DATA","SHOW_DATA");
 			}else
 			{
-				label.text = "Ocultar Datos Personales";				
+				label.text = LocaleManager.$GetText("PERSONAL_DATA","HIDE_DATA");				
 			}
 		}
 		

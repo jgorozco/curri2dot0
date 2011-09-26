@@ -5,6 +5,8 @@
 	import com.igz.curri2.frwk.ColorManager;
 	import com.igz.curri2.ui.CategoriesUi;
 	import flash.external.ExternalInterface;
+	import flash.system.Capabilities;
+	import flash.system.System;
 	import igz.fleaxy.configuration.ConfigurationManager;
 	import igz.fleaxy.Fleaxy;
 	import igz.fleaxy.net.Comm;
@@ -27,6 +29,7 @@
 		private var _onCompleteLoad:Function;
 		public var $CVToLoad:String;
 		public var $firstSearch:int;
+		public var $LastSearchs:Array;
 		static protected var _Current:Frwk;
 		static public function get $Current() : Frwk {
 			if ( _Current == null ) {
@@ -40,6 +43,7 @@
 
 		public function $Init(p_complete:Function ) : void {
 			$firstSearch = 0;
+			$LastSearchs = new Array();
 			_onCompleteLoad = p_complete;
 			var c:String = "";
 			if (ExternalInterface.available){
