@@ -9,6 +9,7 @@
 		<BAD_MAIL><![CDATA[Error en el correo, intentelo de nuevo]]></BAD_MAIL>
 		<PUT_MAIL><![CDATA[pon el mail aqui!]]></PUT_MAIL>
 		<RECOM><![CDATA[Recomienda esta app a : ]]></RECOM>
+		<NEW_TIMELINE><![CDATA[Crear un nuevo timeline]]></NEW_TIMELINE>
 		<RECOM_MAIL><![CDATA[Pon tu CV en una linea temporal!]]></RECOM_MAIL>
 	</COMBO>
 	<PERSONAL_DATA>
