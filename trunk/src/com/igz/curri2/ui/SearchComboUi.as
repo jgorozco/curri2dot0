@@ -46,8 +46,9 @@ package com.igz.curri2.ui
 				var link:LinkUi = new LinkUi(label, { "onClick":$recomendMail } );
 				link.x = 25;
 				link.y = 300;
-				s.addChild(link);
 
+				s.addChild(link);
+				
 			}
 			_TitleLabel = new LabelUi(title,"default4", { "fixWidth" : 350
 														, "maxLines" : 2
@@ -66,6 +67,19 @@ package com.igz.curri2.ui
 								  ,"borderAlpha"	: 0
 								  ,"width"          :100
 								});
+			var link2:ButtonUi =  new ButtonUi(LocaleManager.$GetText("COMBO", "NEW_TIMELINE"), $createCv, {  
+				  "marginTop"      : 20
+				  ,"marginInternal"	: 30
+				  ,"round"          : 10
+				  ,"labelStyle"     : "default1"
+				  ,"background"     : 0xcacaca
+				  ,"borderAlpha"	: 0
+				  ,"width"          :200
+				});			
+			link2.y = 235;
+			link2.x = 25;
+			s.addChild(link2);					
+								
 			_TitleLabel.x =25;
 			_TitleLabel.y = 15;
 			s.addChild(_TitleLabel);
@@ -100,6 +114,15 @@ package com.igz.curri2.ui
 			url.method = URLRequestMethod.POST;
 			navigateToURL(url,"_blank");		
 		}
+		
+		public function $createCv():void
+		{
+			var subj:String = "mailto:"+Frwk.$Current.$CVToLoad+"?subject="+LocaleManager.$GetText("COMBO", "RECOM_MAIL");
+			var url:URLRequest = new URLRequest("http://www.timelinecareer.com");
+			url.method = URLRequestMethod.POST;
+			navigateToURL(url,"_blank");		
+		}
+		
 		
 		public function f_searchPerson():void
 		{
