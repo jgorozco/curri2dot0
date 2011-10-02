@@ -151,7 +151,7 @@ package com.igz.curri2.ui
 		{
 			_ProyectUi = new ProyectUi();
 			addChild(_ProyectUi);
-			_ProyectUi.y = (Fleaxy.$Current.$Stage.stageHeight - _ProyectUi.$HeaderHeight);
+			_ProyectUi.y = (Fleaxy.$Current.$Stage.stageHeight - _ProyectUi.$HeaderHeight)-30;
 		}
 		
 		
